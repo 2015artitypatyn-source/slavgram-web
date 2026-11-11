@@ -90,6 +90,7 @@
   .folder-chip { border: 1px solid var(--border); background: none; color: var(--text); font-size: 12px; padding: 4px 10px; border-radius: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
   .folder-chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
   .folder-chip .x { opacity: .6; font-size: 11px; }
+  .folder-chip .arch-count { margin-left: 5px; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; min-width: 16px; height: 16px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; padding: 0 5px; }
   .folder-chip .x:hover { opacity: 1; }
   .folders-empty { color: var(--text-dim); font-size: 11px; padding: 2px 14px; }
   .chat-list { flex: 1; overflow-y: auto; }
@@ -161,7 +162,12 @@
   .gif-panel .gif-item { border: none; background: none; padding: 0; cursor: pointer; border-radius: 12px; overflow: hidden; aspect-ratio: 1; }
   .gif-panel .gif-item img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 12px; }
   .gif-panel .gif-item:hover { box-shadow: 0 0 0 2px var(--accent); }
+  .chan-name-sep { text-align: center; color: var(--text-dim); font-size: 11px; margin: 10px 0 2px; display: flex; align-items: center; gap: 8px; }
+  .chan-name-sep::before, .chan-name-sep::after { content: ""; flex: 1; height: 1px; background: var(--border); }
   .msg .bubble .media-img { display: block; max-width: 260px; max-height: 260px; border-radius: 12px; object-fit: cover; margin-bottom: 4px; }
+  .msg .bubble .circle-video { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; background: #000; margin-bottom: 4px; position: relative; }
+  .msg .bubble .circle-video video.round { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; cursor: pointer; }
+  .msg .bubble .circle-video .play-ic { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.5); pointer-events: none; font-size: 40px; }
   .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; z-index: 100; overflow-y: auto; padding: 24px 0; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .28s cubic-bezier(.25,.8,.25,1), visibility 0s linear .28s; }
   .overlay.show { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .28s cubic-bezier(.25,.8,.25,1); }
   .modal { background: var(--bg-chat); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); width: 380px; max-width: 92vw; padding: 22px; margin: auto; transform: translateY(14px) scale(.96); opacity: 0; transition: transform .28s cubic-bezier(.25,.8,.25,1), opacity .28s cubic-bezier(.25,.8,.25,1); }
@@ -354,6 +360,7 @@
         <button class="icon-btn" id="gifBtn" title="GIF-наклейки"></button>
         <button class="icon-btn" id="emojiBtn" title="Эмодзи"></button>
         <button class="icon-btn" id="micBtn" title="Записать голосовое"></button>
+        <button class="icon-btn" id="circleBtn" title="Видеосообщение (кружок)"></button>
         <textarea id="input" rows="1" placeholder="Написать сообщение…"></textarea>
         <button class="send-btn" id="sendBtn" title="Отправить"></button>
       </div>
@@ -599,10 +606,14 @@
 <div class="overlay" id="chanJoinOverlay">
   <div class="modal">
     <h3>Подписаться на канал</h3>
-    <p class="sub">Введите юзернейм автора канала.</p>
-    <input type="text" id="chanSearchUser" maxlength="24" placeholder="@юзернейм автора">
+    <p class="sub">Найдите канал по юзернейму автора или названию.</p>
+    <input type="text" id="chanSearchUser" maxlength="24" placeholder="Поиск по юзернейму автора">
     <div class="hint" id="chanSearchHint"></div>
     <div id="chanSearchResult"></div>
+    <div class="chan-name-sep">или</div>
+    <input type="text" id="chanSearchName" maxlength="50" placeholder="Название канала">
+    <div class="hint" id="chanNameSearchHint"></div>
+    <div id="chanNameSearchResult"></div>
     <div class="modal-actions">
       <button class="btn ghost" id="chanJoinCancel">Отмена</button>
     </div>
@@ -652,6 +663,7 @@ let allUserCache = {};         // uid -> {username, name, avatar}
 let seededOnce = localStorage.getItem("slav_seeded2") === "1";
 let notifEnabled = localStorage.getItem("slav_notif") !== "off";   // notifications on by default
 let lastRead = JSON.parse(localStorage.getItem("slav_lastread") || "{}");   // channel -> message timestamp (ms)
+let archivedSet = new Set(JSON.parse(localStorage.getItem("slav_archived") || "[]")); // archived chat ids
 function saveLastRead(){ try { localStorage.setItem("slav_lastread", JSON.stringify(lastRead)); } catch(e){} }
 function msgTimeMs(m){
   if (!m || !m.created_at) return 0;
@@ -750,6 +762,7 @@ const el = {
   input: document.getElementById("input"), sendBtn: document.getElementById("sendBtn"),
   emojiBtn: document.getElementById("emojiBtn"), emojiPanel: document.getElementById("emojiPanel"),
   micBtn: document.getElementById("micBtn"), mic: document.getElementById("mic"),
+  circleBtn: document.getElementById("circleBtn"),
   photoBtn: document.getElementById("photoBtn"), gifBtn: document.getElementById("gifBtn"),
   photoInput: document.getElementById("photoInput"), gifPanel: document.getElementById("gifPanel"),
   search: document.getElementById("search"), backBtn: document.getElementById("backBtn"),
@@ -797,6 +810,8 @@ ICO.key         = ICO.svg('<circle cx="8" cy="16" r="4"/><path d="M11 13L20 4M17
 ICO.device      = ICO.svg('<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>');
 ICO.photo       = ICO.svg('<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 3 3 3-3 5 5"/>');
 ICO.gifBox      = ICO.svg('<rect x="3" y="6" width="18" height="12" rx="3"/><path d="M9 15V9M9 12h2.5M14 9h2.5a1 1 0 010 3h-1a1 1 0 000 3h2"/>');
+ICO.archive     = ICO.svg('<rect x="3" y="4" width="18" height="4" rx="1.5"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><path d="M10 12h4"/>');
+ICO.video       = ICO.svg('<circle cx="12" cy="12" r="9"/><path d="M10 9.5l5 2.5-5 2.5v-5z"/>');
 ICO.paintbrush  = ICO.svg('<path d="M4 20c0-4 6-12 12-13 2-.3 3 .5 3 2-1 4-8 9-12 9z"/><path d="M16 7l-5 5"/>');
 ICO.doc         = ICO.svg('<path d="M6 2h8l4 4v16H6V2z"/><path d="M14 2v4h4M9 13h6M9 16h6M9 10h2"/>');
 function setIcon(el, key){
@@ -1685,6 +1700,65 @@ el.micBtn.onclick = () => {
 // Escape cancels a pending voice recording
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && micState !== "idle") cancelVoice(); });
 
+// ---- video round (circle) messages (MediaRecorder video -> base64) ----
+let vidState = "idle"; // idle | recording | ready
+let vidRec = null;
+let vidStream = null;
+let pendingVideo = null; // { data: dataURL, duration: seconds }
+let vidChunks = [];
+let vidStart = 0;
+let vidTimer = null;
+const MAX_VID_MS = 60000;
+const MAX_VID_BYTES = 800000; // keep under Firestore ~1MB
+function updateCircleBtn(){
+  const b = el.circleBtn;
+  if (!b) return;
+  b.classList.toggle("rec", vidState === "recording");
+  setIcon(b, vidState === "recording" ? "xmark" : (vidState === "ready" ? "checkmark" : "video"));
+  b.title = vidState === "recording" ? "Остановить кружок" : (vidState === "ready" ? "Отправить кружок (Enter)" : "Видеосообщение");
+}
+async function circleStart(){
+  try {
+    vidStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 480 }, height: { ideal: 480 } }, audio: true });
+  } catch(e){ console.warn(e); alert("Нет доступа к камере"); return; }
+  const mime = MediaRecorder.isTypeSupported("video/webm") ? "video/webm" : "video/mp4";
+  vidRec = new MediaRecorder(vidStream, { mimeType: mime });
+  vidChunks = [];
+  vidRec.ondataavailable = (e) => { if (e.data && e.data.size) vidChunks.push(e.data); };
+  vidRec.onstop = () => {
+    const blob = new Blob(vidChunks, { type: mime });
+    if (blob.size > MAX_VID_BYTES) { alert("Кружок слишком большой, запишите короче"); vidState = "idle"; updateCircleBtn(); vidStream.getTracks().forEach(t => t.stop()); vidStream = null; return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      pendingVideo = { data: reader.result, duration: Math.max(1, Math.round((Date.now()-vidStart)/1000)) };
+      vidState = "ready"; updateCircleBtn();
+    };
+    reader.readAsDataURL(blob);
+    vidStream.getTracks().forEach(t => t.stop());
+    vidStream = null;
+  };
+  vidStart = Date.now();
+  vidRec.start();
+  vidState = "recording"; updateCircleBtn();
+  vidTimer = setTimeout(() => { if (vidState === "recording") circleStop(); }, MAX_VID_MS);
+}
+function circleStop(){
+  if (vidRec && vidState === "recording") { clearTimeout(vidTimer); vidRec.stop(); return true; }
+  return false;
+}
+function cancelVid(){
+  clearTimeout(vidTimer);
+  if (vidRec && vidState === "recording") { try { vidRec.stop(); } catch(e){} }
+  if (vidStream) { vidStream.getTracks().forEach(t=>t.stop()); vidStream = null; }
+  pendingVideo = null; vidState = "idle"; updateCircleBtn();
+}
+el.circleBtn.onclick = () => {
+  if (vidState === "recording") circleStop();
+  else if (vidState === "ready") sendMessage();
+  else circleStart();
+};
+updateCircleBtn();
+
 async function ensureChannel(otherUid){
   const ch = channels[otherUid];
   if (ch) return ch;
@@ -1700,7 +1774,8 @@ async function sendMessage(){
   const text = el.input.value.trim();
   const voice = pendingVoice;
   const media = pendingMedia;
-  if (!text && !voice && !media) { if (stopRecording()) {} return; }
+  const video = pendingVideo;
+  if (!text && !voice && !media && !video) { if (stopRecording()) {} return; }
   let ch;
   if (c.type === "group") ch = "g_" + c.groupId;
   else if (c.type === "channel") ch = chanMsgKey(c.chanId);
@@ -1711,6 +1786,9 @@ async function sendMessage(){
     if (voice) {
       await db.collection("msgs").add({ channel: ch, author: me.uid, text: text || "", voice: voice.data, duration: voice.duration, created_at: serverTS() });
       pendingVoice = null; micState = "idle"; updateMicBtn();
+    } else if (video) {
+      await db.collection("msgs").add({ channel: ch, author: me.uid, video: video.data, duration: video.duration, text: text || "", created_at: serverTS() });
+      pendingVideo = null; vidState = "idle"; updateCircleBtn();
     } else if (media) {
       await db.collection("msgs").add({ channel: ch, author: me.uid, text: text || "", media: media.data, mediaType: media.type, created_at: serverTS() });
       pendingMedia = null;
@@ -1725,12 +1803,38 @@ async function sendMessage(){
 function saveFolders(){
   localStorage.setItem("slav_folders", JSON.stringify(FOLDERS));
 }
+function saveArchived(){ try { localStorage.setItem("slav_archived", JSON.stringify(Array.from(archivedSet))); } catch(e){} }
+function toggleArchived(id){
+  if (archivedSet.has(id)) archivedSet.delete(id);
+  else archivedSet.add(id);
+  saveArchived();
+  renderAll();
+}
 function renderFolders(){
   const bar = document.getElementById("foldersBar");
   if (!bar) return;
   bar.innerHTML = "";
-  if (!FOLDERS.length) {
-    bar.innerHTML = `<span class="folders-empty">Папок нет</span>`;
+  // Archive chip (like Telegram) with unread counter
+  let archUnread = 0;
+  CONTACTS.forEach(c => {
+    if (!archivedSet.has(c.id)) return;
+    const ch = c.type === "group" ? ("g_" + c.groupId) : (c.type === "channel" ? chanMsgKey(c.chanId) : channels[c.otherUid]);
+    if (!ch) return;
+    const readAt = lastRead[ch] || 0;
+    archUnread += (msgsCache[ch] || []).filter(m => m.author !== me.uid && msgTimeMs(m) > readAt).length;
+  });
+  const archChip = document.createElement("button");
+  archChip.className = "folder-chip" + (activeFolder === "__arch" ? " active" : "");
+  archChip.innerHTML = `🗄️ Архив${archUnread ? `<span class="arch-count">${archUnread}</span>` : ""}`;
+  archChip.title = "Архивированные чаты";
+  archChip.onclick = () => {
+    activeFolder = activeFolder === "__arch" ? null : "__arch";
+    renderFolders();
+    renderAll();
+  };
+  bar.appendChild(archChip);
+  if (FOLDERS.length === 0 && !archUnread) {
+    bar.innerHTML += `<span class="folders-empty">Папок нет</span>`;
   }
   FOLDERS.forEach(f => {
     const chip = document.createElement("button");
@@ -1848,6 +1952,41 @@ document.getElementById("chanCreate").onclick = async () => {
 // join channel: search user, list their channels
 document.getElementById("chanJoinCancel").onclick = () => document.getElementById("chanJoinOverlay").classList.remove("show");
 document.getElementById("chanSearchUser").addEventListener("input", debounceFindChannels);
+// search channels by name (client-side filter over fetched channels)
+let chanNameTimer = null;
+document.getElementById("chanSearchName").addEventListener("input", (e) => {
+  clearTimeout(chanNameTimer);
+  const q = e.target.value.trim().toLowerCase();
+  document.getElementById("chanNameSearchResult").innerHTML = "";
+  document.getElementById("chanNameSearchHint").textContent = "";
+  if (!q) return;
+  chanNameTimer = setTimeout(async () => {
+    try {
+      const snap = await db.collection("channels").limit(100).get();
+      const found = [];
+      snap.forEach(d => {
+        const ch = d.data();
+        if ((ch.name || "").toLowerCase().includes(q)) found.push({ id: d.id, ...ch });
+      });
+      const box = document.getElementById("chanNameSearchResult");
+      if (!found.length) { box.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">Каналы не найдены.</div>`; return; }
+      found.slice(0, 15).forEach(ch => {
+        const subbed = isMyChannel(ch.id);
+        const row = document.createElement("div");
+        row.className = "result-row";
+        row.innerHTML = `<div class="avatar sm" style="background:${ch.color||SELF_COLORS[0]}">${ch.avatar||"📢"}</div>
+          <div><div>${esc(ch.name)}</div><div style="font-size:11px;color:var(--text-dim)">${esc(ch.desc||"")}</div></div>
+          <span style="margin-left:auto;font-size:12px">${subbed ? "✓" : "＋"}</span>`;
+        row.onclick = async () => {
+          if (subbed) await unsubscribeChannel(ch.id);
+          else await subscribeChannel(ch.id);
+          document.getElementById("chanJoinOverlay").classList.remove("show");
+        };
+        box.appendChild(row);
+      });
+    } catch(err){ console.warn(err); document.getElementById("chanNameSearchHint").textContent = "Ошибка поиска"; }
+  }, 400);
+});
 let chanFindTimer=null;
 async function debounceFindChannels(e){
   const u = normUser(e.target.value);
@@ -1937,6 +2076,12 @@ function renderList(filter=""){
     (c.name || "").toLowerCase().includes((filter||"").toLowerCase()) ||
     (c.username || "").toLowerCase().includes((filter||"").toLowerCase())
   );
+  // archive filtering: in archive view show only archived; otherwise hide archived
+  if (activeFolder === "__arch") {
+    list = list.filter(c => archivedSet.has(c.id));
+  } else {
+    list = list.filter(c => !archivedSet.has(c.id));
+  }
   list = applyFolderFilter(list);
   if (activeFolder) {
     const f = FOLDERS.find(x=>x.name===activeFolder);
@@ -1978,9 +2123,15 @@ function renderList(filter=""){
       `<div style="display:flex;flex-direction:column;gap:2px">` +
         `<button class="icon-btn danger del hidden" data-id="${c.id}" title="${delLabel}"></button>` +
         `<button class="icon-btn folder-add" data-id="${c.id}" title="В папку"></button>` +
+        `<button class="icon-btn arch-add" data-id="${c.id}" title="${archivedSet.has(c.id) ? "Разархивировать" : "В архив"}"></button>` +
       `</div>`;
     div.onclick = () => openChat(c.id);
     const delBtn = div.querySelector(".del");
+    setIcon(delBtn, c.type === "group" ? "personCrop" : "trash");
+    delBtn.onclick = (e) => { e.stopPropagation(); deleteContact(c.id); };
+    const archBtn = div.querySelector(".arch-add");
+    setIcon(archBtn, "archive");
+    archBtn.onclick = (e) => { e.stopPropagation(); toggleArchived(c.id); };
     setIcon(delBtn, c.type === "group" ? "personCrop" : "trash");
     delBtn.onclick = (e) => { e.stopPropagation(); deleteContact(c.id); };
     const folderBtn = div.querySelector(".folder-add");
@@ -2092,9 +2243,11 @@ function renderMessages(){
     const authorLabel = showAuthorIn ? (allUserCache[m.author] ? allUserCache[m.author].name : authorOf(m.author)) : "";
     const bubbleBody = m.voice
       ? `<div class="voice-bubble"><audio controls src="${m.voice}"></audio><span>🎤 ${m.duration||0}с</span></div>`
-      : (m.media
-        ? `<img class="media-img" src="${m.media}" alt="медиа">` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
-        : `<div class="text">${esc(m.text)}</div>`);
+      : (m.video
+        ? `<div class="circle-video"><video class="round" src="${m.video}" muted loop playsinline preload="metadata"></video></div>` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
+        : (m.media
+          ? `<img class="media-img" src="${m.media}" alt="медиа">` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
+          : `<div class="text">${esc(m.text)}</div>`));
     d.innerHTML =
       (showAuthorIn ? `<div class="author">${esc(authorLabel)}</div>` : "") +
       `<div class="bubble">${bubbleBody}` +
@@ -2105,6 +2258,14 @@ function renderMessages(){
       d.addEventListener("dblclick", () => { if (confirm("Удалить это сообщение?")) deleteMessage(m.id); });
     }
     el.messages.appendChild(d);
+  });
+  // play/pause round videos on click
+  el.messages.querySelectorAll("video.round").forEach(v => {
+    const wrap = v.closest(".circle-video");
+    v.addEventListener("click", () => {
+      if (v.paused) { v.muted = false; v.play().catch(()=>{}); if (wrap) wrap.style.background = "#000"; }
+      else v.pause();
+    });
   });
   el.messages.scrollTop = el.messages.scrollHeight;
 }
@@ -2399,6 +2560,7 @@ setIcon(el.sendBtn, "paperplane");
 setIcon(el.photoBtn, "photo");
 setIcon(el.gifBtn, "gifBox");
 setIcon(el.micBtn, "mic");
+setIcon(el.circleBtn, "video");
 tryAutoLogin();
 
 
