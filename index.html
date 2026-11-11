@@ -144,6 +144,7 @@
   .msg.in .meta { color: var(--text-dim); }
   .msg.out .meta { color: rgba(255,255,255,.85); }
   .msg .check { color: inherit; opacity: .9; }
+  .msg .check.read { color: var(--accent); opacity: 1; }
   .composer { padding: 10px 14px; border-top: 1px solid var(--border); display: flex; align-items: flex-end; gap: 8px; background: var(--bg-side); }
   .composer textarea { flex: 1; resize: none; border: none; border-radius: 20px; padding: 10px 16px; font-size: 15px; font-family: inherit; background: var(--bg-chat); color: var(--text); outline: none; max-height: 120px; min-height: 40px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
   .send-btn { border: none; cursor: pointer; background: var(--accent); color: #fff; width: 42px; height: 42px; border-radius: 50%; font-size: 17px; display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
@@ -1318,7 +1319,7 @@ async function loadUser(uid){
     const d = await db.collection("users").doc(uid).get();
     if (d.exists) {
       const dd = d.data();
-      allUserCache[uid] = { username: dd.username, name: dd.name, avatar: dd.avatar, avatarImg: dd.avatarImg, bio: dd.bio };
+      allUserCache[uid] = { username: dd.username, name: dd.name, avatar: dd.avatar, avatarImg: dd.avatarImg, bio: dd.bio, readAt: dd.readAt || {} };
       // update contact row if names/avatar differ
       const cid = contactUidToId[uid];
       if (cid) {
@@ -2248,10 +2249,21 @@ function renderMessages(){
         : (m.media
           ? `<img class="media-img" src="${m.media}" alt="медиа">` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
           : `<div class="text">${esc(m.text)}</div>`));
+    const sentT = msgTimeMs(m);
+    const chKey = c.type === "group" ? ("g_" + c.groupId) : (c.type === "channel" ? chanMsgKey(c.chanId) : channels[c.otherUid]);
+    let statusHtml = "";
+    if (out && c.type !== "channel") {
+      // own message: show delivered(✓) / read(✓✓) based on peer's read receipt
+      const readAt = c.type === "group" ? 0 : peerReadAt(c.otherUid, chKey);
+      const isRead = readAt > 0 && sentT <= readAt;
+      statusHtml = `<span class="check ${isRead ? "read" : ""}">${isRead ? "✓✓" : "✓"}</span>`;
+    } else if (out) {
+      statusHtml = `<span class="check">✓✓</span>`;
+    }
     d.innerHTML =
       (showAuthorIn ? `<div class="author">${esc(authorLabel)}</div>` : "") +
       `<div class="bubble">${bubbleBody}` +
-      `<div class="meta">${out ? '<span class="check">✓✓</span>' : ""}<span>${fmtTime(m.created_at)}</span></div>` +
+      `<div class="meta">${statusHtml}<span>${fmtTime(m.created_at)}</span></div>` +
       `</div>`;
     if (out && m.author === me.uid) {
       d.addEventListener("contextmenu", (e) => { e.preventDefault(); openMsgMenu(e, m); });
@@ -2320,8 +2332,25 @@ function openChat(id){
              : c.type === "channel" ? chanMsgKey(c.chanId)
              : channels[c.otherUid];
     if (ch) markRead(ch);
+    // server-side read receipt: tell the peer which channel I've read up to
+    if (ch && c.type !== "channel") pushMyRead(ch);
   }
   renderAll();
+}
+// ---- read receipts ----
+// write "I read channel X up to now" into my own user doc; peers listen to it.
+function pushMyRead(ch){
+  if (!me) return;
+  try {
+    db.collection("users").doc(me.uid).update({ ["readAt." + ch]: serverTS() }).catch(e => console.warn("read push err", e));
+  } catch(e){ console.warn(e); }
+}
+function peerReadAt(otherUid, ch){
+  const meta = allUserCache[otherUid];
+  if (!meta || !meta.readAt) return 0;
+  const t = meta.readAt[ch];
+  if (!t) return 0;
+  try { return t.toDate ? t.toDate().getTime() : new Date(t).getTime(); } catch(e){ return 0; }
 }
 function saveTheme(){ localStorage.setItem("slav_theme", state.theme); }
 function applyTheme(){
