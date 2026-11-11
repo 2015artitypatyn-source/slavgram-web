@@ -70,7 +70,10 @@
   .sidebar-resizer { position: absolute; top: 0; right: -4px; width: 9px; height: 100%; cursor: col-resize; z-index: 5; }
   .sidebar-resizer:hover { background: rgba(96,96,96,.15); }
   .sidebar-resizer.active { background: var(--accent2); opacity: .5; }
-  .sidebar-head { padding: 0 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); height: 68px; flex: none; box-sizing: border-box; overflow: hidden; }
+  .sidebar-head { padding: 6px 10px 8px; display: flex; flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--border); flex: none; box-sizing: border-box; }
+  .sidebar-head .sg-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .sidebar-head .actions-row { display: flex; align-items: center; justify-content: space-between; gap: 2px; margin-top: 4px; }
+  .sidebar-head .side-actions { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
   .sg-logo { display: inline-flex; align-items: center; justify-content: center; height: 34px; min-width: 34px; background: transparent; border: none; color: var(--accent); font-weight: 800; cursor: pointer; user-select: none; overflow: hidden; flex: none; position: relative; }
   .sg-logo .sg-full { font-size: 18px; letter-spacing: .5px; padding: 0 6px; white-space: nowrap; perspective: 200px; display: block; transform-origin: center; }
   .sg-logo .sg-full .l { display: inline-block; white-space: pre; transform-origin: center; transition: transform .4s cubic-bezier(.25,.8,.25,1), opacity .4s ease; }
@@ -82,12 +85,7 @@
   .brand:hover { background: var(--hover); }
   .brand .logo { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; font-size: 24px; background: linear-gradient(135deg, var(--accent2), var(--accent)); box-shadow: 0 2px 6px rgba(0,0,0,.15); }
   .brand h1 { font-size: 15px; font-weight: 700; letter-spacing: .3px; }
-  .brand .handle { display: block; color: var(--text-dim); font-size: 11px; font-weight: 400; }
-  .icon-btn { border: none; background: none; cursor: pointer; font-size: 18px; width: 36px; height: 36px; border-radius: 10px; color: var(--accent); display: grid; place-items: center; }
-  .icon-btn:hover { background: var(--hover); }
-  .icon-btn.danger { color: var(--red); }
-  .icon-btn.danger:hover { color: var(--red); background: rgba(255,59,48,.12); }
-  .side-actions { display: flex; align-items: center; gap: 2px; }
+.brand .handle { display: block; color: var(--text-dim); font-size: 11px; font-weight: 400; }
   .notif-off { opacity: .4; filter: grayscale(100%); }
   .app-toast { position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-120%); z-index: 300; background: var(--bg-chat); color: var(--text); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 10px 16px; font-size: 13px; max-width: 80vw; text-align: center; transition: transform .25s ease; }
   .app-toast.show { transform: translateX(-50%) translateY(0); }
@@ -131,7 +129,7 @@
   .chat-pane .messages { position: relative; z-index: 1; background: transparent; }
   .chat-pane .messages.blurred { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
   .chat-pane .composer-wrap { position: relative; z-index: 2; }
-  .chat-header { padding: 0 12px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--bg-side); backdrop-filter: saturate(180%) blur(20px); height: 68px; flex: none; box-sizing: border-box; overflow: hidden; }
+  .chat-header { padding: 8px 12px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); background: var(--bg-side); backdrop-filter: saturate(180%) blur(20px); min-height: 68px; flex: none; box-sizing: border-box; }
   .chat-header .mid { flex: 1; }
   .chat-header .name { font-weight: 700; font-size: 16px; }
   .chat-header .handle { color: var(--text-dim); font-size: 12px; }
@@ -299,26 +297,30 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-resizer" id="sidebarResizer" title="Растянуть чаты"></div>
     <div class="sidebar-head">
-      <div class="sg-logo" id="sgLogo" title="Нажмите, чтобы свернуть">
-        <span class="sg-full"><span class="l">s</span><span class="l">l</span><span class="l">a</span><span class="l">v</span><span class="l">g</span><span class="l">r</span><span class="l">a</span><span class="l">m</span></span>
-        <span class="sg-s">S</span>
-      </div>
-      <div class="brand" id="brandBtn" title="Редактировать профиль">
-        <div class="logo" id="brandAvatar">🕊️</div>
-        <div>
-          <h1 id="brandName">Я</h1>
-          <span class="handle" id="brandHandle">@…</span>
+      <div class="sg-row">
+        <div class="sg-logo" id="sgLogo" title="Нажмите, чтобы свернуть">
+          <span class="sg-full"><span class="l">s</span><span class="l">l</span><span class="l">a</span><span class="l">v</span><span class="l">g</span><span class="l">r</span><span class="l">a</span><span class="l">m</span></span>
+          <span class="sg-s">S</span>
+        </div>
+        <div class="brand" id="brandBtn" title="Редактировать профиль">
+          <div class="logo" id="brandAvatar">🕊️</div>
+          <div>
+            <h1 id="brandName">Я</h1>
+            <span class="handle" id="brandHandle">@…</span>
+          </div>
         </div>
       </div>
-      <div class="side-actions">
-        <button class="icon-btn" id="addContactBtn" title="Добавить по юзернейму"></button>
-        <button class="icon-btn" id="newGroupBtn" title="Новая группа"></button>
-        <button class="icon-btn" id="newChanBtn" title="Каналы"></button>
-        <button class="icon-btn" id="notifBtn" title="Уведомления"></button>
-        <button class="icon-btn" id="settingsBtn" title="Настройки"></button>
-        <button class="icon-btn" id="logoutBtn" title="Выйти"></button>
-        <button class="icon-btn" id="closeAppBtn" title="Закрыть приложение" style="display:none;"></button>
-        <button class="icon-btn" id="themeToggle" title="Поменять тему"></button>
+      <div class="actions-row">
+        <div class="side-actions">
+          <button class="icon-btn" id="addContactBtn" title="Добавить по юзернейму"></button>
+          <button class="icon-btn" id="newGroupBtn" title="Новая группа"></button>
+          <button class="icon-btn" id="newChanBtn" title="Каналы"></button>
+          <button class="icon-btn" id="notifBtn" title="Уведомления"></button>
+          <button class="icon-btn" id="settingsBtn" title="Настройки"></button>
+          <button class="icon-btn" id="logoutBtn" title="Выйти"></button>
+          <button class="icon-btn" id="closeAppBtn" title="Закрыть приложение" style="display:none;"></button>
+          <button class="icon-btn" id="themeToggle" title="Поменять тему"></button>
+        </div>
       </div>
     </div>
     <div class="conn" id="conn"><span class="dot"></span><span id="connText">Подключение…</span></div>
