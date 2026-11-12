@@ -1502,6 +1502,7 @@ function setupInboxChannelsForIncoming(){
         map[m.channel].push({ id: d.id, ...m });
       });
       // only keep channels involving me
+      const prevCache = msgsCache;
       msgsCache = {};
       Object.keys(map).forEach(ch => {
         let isMine = false;
@@ -1510,11 +1511,11 @@ function setupInboxChannelsForIncoming(){
           // group channel
           const gid = ch.slice(2);
           const hasGroup = GROUPS.some(g => g.groupId === gid);
-          isMine = hasGroup;
+          isMine = hasGroup || (prevCache[ch] && groupChannels[gid]);
         } else if (ch.indexOf("c_") === 0) {
           // channel feed
           const chanId = ch.slice(2);
-          isMine = isMyChannel(chanId);
+          isMine = isMyChannel(chanId) || !!prevCache[ch];
         } else {
           const parts = ch.split("__");
           if (parts.includes(me.uid)) {
@@ -2500,10 +2501,25 @@ function openChat(id){
              : c.type === "channel" ? chanMsgKey(c.chanId)
              : channels[c.otherUid];
     if (ch) markRead(ch);
+    // ensure this chat's history is in the cache even if a listener raced
+    if (ch) loadChannelMsgs(ch);
     // server-side read receipt: tell the peer which channel I've read up to
     if (ch && c.type !== "channel") pushMyRead(ch);
   }
   renderAll();
+}
+// fetch a channel's full history into the cache (used when opening a chat, so
+// inbound group/channel messages appear even if a listener started later)
+async function loadChannelMsgs(ch){
+  if (!ch || !db) return;
+  try {
+    const q = await db.collection("msgs").where("channel", "==", ch).get();
+    const list = [];
+    q.forEach(d => { list.push({ id: d.id, ...d.data() }); });
+    list.sort((a,b)=>(a.created_at<b.created_at?-1:a.created_at>b.created_at?1:0));
+    msgsCache[ch] = list;
+    renderAll();
+  } catch(e){ console.warn("loadChannelMsgs err", e); }
 }
 // ---- read receipts ----
 // write "I read channel X up to now" into my own user doc; peers listen to it.
