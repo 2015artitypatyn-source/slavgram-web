@@ -1286,7 +1286,7 @@ document.addEventListener("keydown", (e) => {
 document.getElementById("profImage").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  if (file.size > 400000) { alert("Картинка слишком большая (макс ~400 КБ)"); return; }
+  if (file.size > 900000) { alert("Картинка слишком большая (макс ~900 КБ)"); return; }
   const reader = new FileReader();
   reader.onload = () => { profImg = reader.result; };
   reader.readAsDataURL(file);
@@ -1912,8 +1912,8 @@ let pendingVideo = null; // { data: dataURL, duration: seconds }
 let vidChunks = [];
 let vidStart = 0;
 let vidTimer = null;
-const MAX_VID_MS = 60000;
-const MAX_VID_BYTES = 800000; // keep under Firestore ~1MB
+const MAX_VID_MS = 120000;
+const MAX_VID_BYTES = 900000; // keep under Firestore ~1MB
 function updateCircleBtn(){
   const b = el.circleBtn;
   if (!b) return;
