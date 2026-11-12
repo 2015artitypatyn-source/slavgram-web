@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>slavgram — мессенджер</title>
-<meta name="description" content="slavgram — мессенджер с юзернеймами и чатами">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🕊️</text></svg>">
+<title>slavgram вЂ” РјРµСЃСЃРµРЅРґР¶РµСЂ</title>
+<meta name="description" content="slavgram вЂ” РјРµСЃСЃРµРЅРґР¶РµСЂ СЃ СЋР·РµСЂРЅРµР№РјР°РјРё Рё С‡Р°С‚Р°РјРё">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>рџ•ЉпёЏ</text></svg>">
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
@@ -265,33 +265,33 @@
 <!-- ================= AUTH SCREEN ================= -->
 <div class="overlay show" id="authOverlay">
   <div class="modal" style="width:400px;">
-    <h3>🕊️ slavgram</h3>
-    <p class="sub">Вход по уникальному юзернейму</p>
+    <h3>рџ•ЉпёЏ slavgram</h3>
+    <p class="sub">Р’С…РѕРґ РїРѕ СѓРЅРёРєР°Р»СЊРЅРѕРјСѓ СЋР·РµСЂРЅРµР№РјСѓ</p>
     <div id="authPanelLogin">
-      <label>Юзернейм</label>
-      <input type="text" id="loginUser" maxlength="24" placeholder="например: vasilisa">
-      <label>Пароль</label>
-      <input type="password" id="loginPass" placeholder="••••••••">
+      <label>Р®Р·РµСЂРЅРµР№Рј</label>
+      <input type="text" id="loginUser" maxlength="24" placeholder="РЅР°РїСЂРёРјРµСЂ: vasilisa">
+      <label>РџР°СЂРѕР»СЊ</label>
+      <input type="password" id="loginPass" placeholder="вЂўвЂўвЂўвЂўвЂўвЂўвЂўвЂў">
       <div class="hint" id="loginHint"></div>
       <div class="modal-actions">
-        <button class="btn ghost" id="toRegister">Создать аккаунт</button>
-        <button class="btn primary" id="doLogin">Войти</button>
+        <button class="btn ghost" id="toRegister">РЎРѕР·РґР°С‚СЊ Р°РєРєР°СѓРЅС‚</button>
+        <button class="btn primary" id="doLogin">Р’РѕР№С‚Рё</button>
       </div>
     </div>
     <div id="authPanelRegister" style="display:none;">
-      <label>Юзернейм</label>
-      <input type="text" id="regUser" maxlength="24" placeholder="уникальный ник (латиница/цифры/_)">
+      <label>Р®Р·РµСЂРЅРµР№Рј</label>
+      <input type="text" id="regUser" maxlength="24" placeholder="СѓРЅРёРєР°Р»СЊРЅС‹Р№ РЅРёРє (Р»Р°С‚РёРЅРёС†Р°/С†РёС„СЂС‹/_)">
       <div class="hint" id="regHint"></div>
-      <label>Имя</label>
-      <input type="text" id="regName" maxlength="30" placeholder="Ваше имя">
-      <label>Аватар</label>
+      <label>РРјСЏ</label>
+      <input type="text" id="regName" maxlength="30" placeholder="Р’Р°С€Рµ РёРјСЏ">
+      <label>РђРІР°С‚Р°СЂ</label>
       <div class="avatar-grid" id="regAvatarGrid"></div>
-      <label>Пароль</label>
-      <input type="password" id="regPass" placeholder="минимум 6 символов">
+      <label>РџР°СЂРѕР»СЊ</label>
+      <input type="password" id="regPass" placeholder="РјРёРЅРёРјСѓРј 6 СЃРёРјРІРѕР»РѕРІ">
       <div class="hint" id="regPassHint"></div>
       <div class="modal-actions">
-        <button class="btn ghost" id="toLogin">У меня есть аккаунт</button>
-        <button class="btn primary" id="doRegister">Зарегистрироваться</button>
+        <button class="btn ghost" id="toLogin">РЈ РјРµРЅСЏ РµСЃС‚СЊ Р°РєРєР°СѓРЅС‚</button>
+        <button class="btn primary" id="doRegister">Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ</button>
       </div>
     </div>
   </div>
@@ -300,37 +300,75 @@
 <!-- ================= APP ================= -->
 <div class="app" id="app" style="display:none;">
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-resizer" id="sidebarResizer" title="Растянуть чаты"></div>
+    <div class="sidebar-resizer" id="sidebarResizer" title="Р Р°СЃС‚СЏРЅСѓС‚СЊ С‡Р°С‚С‹"></div>
     <div class="sidebar-head">
       <div class="sg-row">
-        <div class="sg-logo" id="sgLogo" title="Нажмите, чтобы свернуть">
+        <div class="sg-logo" id="sgLogo" title="РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СЃРІРµСЂРЅСѓС‚СЊ">
           <span class="sg-full"><span class="l">s</span><span class="l">l</span><span class="l">a</span><span class="l">v</span><span class="l">g</span><span class="l">r</span><span class="l">a</span><span class="l">m</span></span>
           <span class="sg-s">S</span>
         </div>
-        <div class="brand" id="brandBtn" title="Редактировать профиль">
-          <div class="logo" id="brandAvatar">🕊️</div>
+        <div class="brand" id="brandBtn" title="Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РїСЂРѕС„РёР»СЊ">
+          <div class="logo" id="brandAvatar">рџ•ЉпёЏ</div>
           <div>
-            <h1 id="brandName">Я</h1>
-            <span class="handle" id="brandHandle">@…</span>
+            <h1 id="brandName">РЇ</h1>
+            <span class="handle" id="brandHandle">@вЂ¦</span>
           </div>
         </div>
       </div>
       <div class="side-actions">
-          <button class="icon-btn" id="addContactBtn" title="Добавить по юзернейму"></button>
-          <button class="icon-btn" id="newGroupBtn" title="Новая группа"></button>
-          <button class="icon-btn" id="newChanBtn" title="Каналы"></button>
-          <button class="icon-btn" id="notifBtn" title="Уведомления"></button>
-          <button class="icon-btn" id="settingsBtn" title="Настройки"></button>
-          <button class="icon-btn" id="logoutBtn" title="Выйти"></button>
-          <button class="icon-btn" id="closeAppBtn" title="Закрыть приложение" style="display:none;"></button>
-          <button class="icon-btn" id="themeToggle" title="Поменять тему"></button>
+          <button class="icon-btn" id="addContactBtn" title="Р”РѕР±Р°РІРёС‚СЊ РїРѕ СЋР·РµСЂРЅРµР№РјСѓ"></button>
+          <button class="icon-btn" id="newGroupBtn" title="РќРѕРІР°СЏ РіСЂСѓРїРїР°"></button>
+          <button class="icon-btn" id="newChanBtn" title="РљР°РЅР°Р»С‹"></button>
+          <button class="icon-btn" id="notifBtn" title="РЈРІРµРґРѕРјР»РµРЅРёСЏ"></button>
+          <button class="icon-btn" id="settingsBtn" title="РќР°СЃС‚СЂРѕР№РєРё"></button>
+          <button class="icon-btn" id="logoutBtn" title="Р’С‹Р№С‚Рё"></button>
+          <button class="icon-btn" id="closeAppBtn" title="Р—Р°РєСЂС‹С‚СЊ РїСЂРёР»РѕР¶РµРЅРёРµ" style="display:none;"></button>
+          <button class="icon-btn" id="themeToggle" title="РџРѕРјРµРЅСЏС‚СЊ С‚РµРјСѓ"></button>
         </div>
     </div>
-    <div class="conn" id="conn"><span class="dot"></span><span id="connText">Подключение…</span></div>
-    <input class="search" id="search" type="text" placeholder="Поиск по контактам…">
+    <div class="conn" id="conn"><span class="dot"></span><span id="connText">РџРѕРґРєР»СЋС‡РµРЅРёРµвЂ¦</span></div>
+    <input class="search" id="search" type="text" placeholder="РџРѕРёСЃРє РїРѕ РєРѕРЅС‚Р°РєС‚Р°РјвЂ¦">
     <div class="folders" id="foldersBar"></div>
     <div class="chat-list" id="chatList"></div>
   </aside>
+
+<!-- setup wizard (shown once on first launch, PC version) -->
+<div class="overlay" id="setupOverlay">
+  <div class="modal" style="width:440px;max-width:94vw;">
+    <h3 id="setupTitle">рџ•ЉпёЏ РќР°СЃС‚СЂРѕР№РєР°</h3>
+    <p class="sub" id="setupSub">РЁР°Рі 1 РёР· 4 вЂ” РџСЂРѕС„РёР»СЊ</p>
+    <div id="setupStep1">
+      <label>РРјСЏ</label>
+      <input type="text" id="setupName" maxlength="30" placeholder="Р’Р°С€Рµ РёРјСЏ">
+      <label>Р‘РёРѕ (Рѕ СЃРµР±Рµ)</label>
+      <textarea id="setupBio" maxlength="200" rows="3" placeholder="Р Р°СЃСЃРєР°Р¶РёС‚Рµ Рѕ СЃРµР±Рµ"></textarea>
+    </div>
+    <div id="setupStep2" style="display:none;">
+      <label>РђРІР°С‚Р°СЂ (РІС‹Р±РµСЂРёС‚Рµ СЌРјРѕРґР·Рё)</label>
+      <div class="avatar-grid" id="setupAvatarGrid"></div>
+    </div>
+    <div id="setupStep3" style="display:none;">
+      <label>РўРµРјР°</label>
+      <div class="modal-actions" style="justify-content:flex-start;padding:0;">
+        <button class="btn" id="setupThemeDark">рџЊ™ РўС‘РјРЅР°СЏ</button>
+        <button class="btn ghost" id="setupThemeLight">вЂпёЏ РЎРІРµС‚Р»Р°СЏ</button>
+      </div>
+      <label>Р¦РІРµС‚</label>
+      <div class="acc-grid" id="setupAccGrid"></div>
+    </div>
+    <div id="setupStep4" style="display:none;">
+      <label>Р¤РѕРЅ С‡Р°С‚Р°</label>
+      <div class="wallpaper-grid" id="setupWallGrid"></div>
+      <label>РЎРІРѕР№ С†РІРµС‚</label>
+      <input type="color" id="setupWallColor" value="#fbfbfb">
+    </div>
+    <div class="modal-actions">
+      <span style="flex:1"></span>
+      <button class="btn ghost" id="setupSkip">РџСЂРѕРїСѓСЃС‚РёС‚СЊ</button>
+      <button class="btn primary" id="setupNext">Р”Р°Р»РµРµ в†’</button>
+    </div>
+  </div>
+</div>
 
 <!-- mini profile of a chat partner (opens on header click, like Telegram) -->
 <div class="overlay" id="miniProfOverlay">
@@ -344,42 +382,43 @@
       </div>
     </div>
     <div id="mpBio" style="color:var(--text);font-size:14px;margin-top:14px;white-space:pre-wrap;"></div>
+    <div id="mpStats" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;"></div>
     <div class="modal-actions">
       <span style="flex:1"></span>
-      <button class="btn ghost" id="mpClose">Закрыть</button>
+      <button class="btn ghost" id="mpClose">Р—Р°РєСЂС‹С‚СЊ</button>
     </div>
   </div>
 </div>
 
   <main class="chat-pane" id="chatPane">
     <div class="chat-header" id="chatHeader" style="display:none;">
-      <button class="icon-btn" id="backBtn" title="Назад"></button>
+      <button class="icon-btn" id="backBtn" title="РќР°Р·Р°Рґ"></button>
       <div class="avatar" id="hdrAvatar"></div>
       <div class="mid">
         <div class="name" id="hdrName"></div>
         <div class="handle" id="hdrHandle"></div>
         <div class="status" id="hdrStatus"></div>
       </div>
-      <button class="icon-btn" id="groupInfoBtn" title="Участники группы" style="display:none;"></button>
-      <button class="icon-btn danger" id="delContactBtn" title="Удалить контакт"></button>
+      <button class="icon-btn" id="groupInfoBtn" title="РЈС‡Р°СЃС‚РЅРёРєРё РіСЂСѓРїРїС‹" style="display:none;"></button>
+      <button class="icon-btn danger" id="delContactBtn" title="РЈРґР°Р»РёС‚СЊ РєРѕРЅС‚Р°РєС‚"></button>
     </div>
     <div class="placeholder" id="placeholder">
       <div>
-        <div class="big">🕊️</div>
-        Выберите собеседника,<br>чтобы начать общение
+        <div class="big">рџ•ЉпёЏ</div>
+        Р’С‹Р±РµСЂРёС‚Рµ СЃРѕР±РµСЃРµРґРЅРёРєР°,<br>С‡С‚РѕР±С‹ РЅР°С‡Р°С‚СЊ РѕР±С‰РµРЅРёРµ
       </div>
     </div>
     <div class="messages" id="messages" style="display:none;"></div>
     <div class="wall-bg" id="wallBg" aria-hidden="true"></div>
     <div class="composer-wrap">
       <div class="composer" id="composer" style="display:none;">
-        <button class="icon-btn" id="photoBtn" title="Отправить фото"></button>
-        <button class="icon-btn" id="gifBtn" title="GIF-наклейки"></button>
-        <button class="icon-btn" id="emojiBtn" title="Эмодзи"></button>
-        <button class="icon-btn" id="micBtn" title="Записать голосовое"></button>
-        <button class="icon-btn" id="circleBtn" title="Видеосообщение (кружок)"></button>
-        <textarea id="input" rows="1" placeholder="Написать сообщение…"></textarea>
-        <button class="send-btn" id="sendBtn" title="Отправить"></button>
+        <button class="icon-btn" id="photoBtn" title="РћС‚РїСЂР°РІРёС‚СЊ С„РѕС‚Рѕ"></button>
+        <button class="icon-btn" id="gifBtn" title="GIF-РЅР°РєР»РµР№РєРё"></button>
+        <button class="icon-btn" id="emojiBtn" title="Р­РјРѕРґР·Рё"></button>
+        <button class="icon-btn" id="micBtn" title="Р—Р°РїРёСЃР°С‚СЊ РіРѕР»РѕСЃРѕРІРѕРµ"></button>
+        <button class="icon-btn" id="circleBtn" title="Р’РёРґРµРѕСЃРѕРѕР±С‰РµРЅРёРµ (РєСЂСѓР¶РѕРє)"></button>
+        <textarea id="input" rows="1" placeholder="РќР°РїРёСЃР°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµвЂ¦"></textarea>
+        <button class="send-btn" id="sendBtn" title="РћС‚РїСЂР°РІРёС‚СЊ"></button>
       </div>
       <input type="file" id="photoInput" accept="image/*" style="display:none;">
       <div class="gif-panel" id="gifPanel"></div>
@@ -391,30 +430,30 @@
 <!-- profile/account modal -->
 <div class="overlay" id="profileOverlay">
   <div class="modal">
-    <h3>Настройки профиля</h3>
-    <p class="sub">Ваш юзернейм: <b id="profHandleStatic"></b></p>
-    <label>Имя</label>
-    <input type="text" id="profName" maxlength="30" placeholder="Ваше имя">
-    <label>Аватар</label>
+    <h3>РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕС„РёР»СЏ</h3>
+    <p class="sub">Р’Р°С€ СЋР·РµСЂРЅРµР№Рј: <b id="profHandleStatic"></b></p>
+    <label>РРјСЏ</label>
+    <input type="text" id="profName" maxlength="30" placeholder="Р’Р°С€Рµ РёРјСЏ">
+    <label>РђРІР°С‚Р°СЂ</label>
     <div class="avatar-grid" id="profAvatarGrid"></div>
-    <label>Своя картинка (загрузить)</label>
+    <label>РЎРІРѕСЏ РєР°СЂС‚РёРЅРєР° (Р·Р°РіСЂСѓР·РёС‚СЊ)</label>
     <input type="file" id="profImage" accept="image/*">
-    <label>Описание профиля</label>
-    <textarea id="profBio" maxlength="200" rows="3" placeholder="Несколько слов о себе"></textarea>
-    <label>Обои чата</label>
+    <label>РћРїРёСЃР°РЅРёРµ РїСЂРѕС„РёР»СЏ</label>
+    <textarea id="profBio" maxlength="200" rows="3" placeholder="РќРµСЃРєРѕР»СЊРєРѕ СЃР»РѕРІ Рѕ СЃРµР±Рµ"></textarea>
+    <label>РћР±РѕРё С‡Р°С‚Р°</label>
     <div class="wallpaper-grid" id="wallpaperGrid"></div>
-    <label>Свой цвет фона</label>
+    <label>РЎРІРѕР№ С†РІРµС‚ С„РѕРЅР°</label>
     <input type="color" id="wallpaperColor" value="#fbfbfb">
-    <label>Свой фон (загрузить картинку)</label>
+    <label>РЎРІРѕР№ С„РѕРЅ (Р·Р°РіСЂСѓР·РёС‚СЊ РєР°СЂС‚РёРЅРєСѓ)</label>
     <input type="file" id="wallImage" accept="image/*">
     <div class="hint" id="wallImageHint"></div>
-    <label>Цвет интерфейса</label>
+    <label>Р¦РІРµС‚ РёРЅС‚РµСЂС„РµР№СЃР°</label>
     <div class="acc-grid" id="accGrid"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="passLinkBtn">Сменить пароль</button>
+      <button class="btn ghost" id="passLinkBtn">РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ</button>
       <span style="flex:1"></span>
-      <button class="btn ghost" id="profCancel">Отмена</button>
-      <button class="btn primary" id="profSave">Сохранить</button>
+      <button class="btn ghost" id="profCancel">РћС‚РјРµРЅР°</button>
+      <button class="btn primary" id="profSave">РЎРѕС…СЂР°РЅРёС‚СЊ</button>
     </div>
   </div>
 </div>
@@ -422,15 +461,15 @@
 <!-- change password modal -->
 <div class="overlay" id="passOverlay">
   <div class="modal">
-    <h3>Сменить пароль</h3>
-    <label>Текущий пароль</label>
+    <h3>РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ</h3>
+    <label>РўРµРєСѓС‰РёР№ РїР°СЂРѕР»СЊ</label>
     <input type="password" id="passCur">
-    <label>Новый пароль</label>
+    <label>РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ</label>
     <input type="password" id="passNew">
     <div class="hint" id="passHint"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="passCancel">Отмена</button>
-      <button class="btn primary" id="passSave">Изменить</button>
+      <button class="btn ghost" id="passCancel">РћС‚РјРµРЅР°</button>
+      <button class="btn primary" id="passSave">РР·РјРµРЅРёС‚СЊ</button>
     </div>
   </div>
 </div>
@@ -439,84 +478,84 @@
 <div class="overlay" id="settingsOverlay">
   <div class="modal settings">
     <div class="settings-head">
-      <h3>Настройки</h3>
+      <h3>РќР°СЃС‚СЂРѕР№РєРё</h3>
     </div>
 
     <div class="set-section" id="setProfileRow">
       <div class="set-row">
         <div class="avatar" id="setAvatar" style="width:44px;height:44px;font-size:22px;"></div>
         <div class="set-row-main">
-          <span class="set-label" id="setName">Я</span>
-          <span class="set-sub" id="setHandle">@…</span>
+          <span class="set-label" id="setName">РЇ</span>
+          <span class="set-sub" id="setHandle">@вЂ¦</span>
         </div>
-        <button class="btn ghost sm" id="setEditProfile">Редактировать</button>
+        <button class="btn ghost sm" id="setEditProfile">Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ</button>
       </div>
     </div>
 
     <div class="set-section">
-      <div class="set-h">Учётная запись</div>
+      <div class="set-h">РЈС‡С‘С‚РЅР°СЏ Р·Р°РїРёСЃСЊ</div>
       <div class="set-row" id="setSessionsRow">
         <span class="set-ico">DEV</span>
-        <span class="set-label">Активные сессии</span>
-        <button class="btn ghost sm" id="setOpenSessions">Открыть</button>
+        <span class="set-label">РђРєС‚РёРІРЅС‹Рµ СЃРµСЃСЃРёРё</span>
+        <button class="btn ghost sm" id="setOpenSessions">РћС‚РєСЂС‹С‚СЊ</button>
       </div>
       <div class="set-row" id="set2faRow">
         <span class="set-ico">2FA</span>
-        <span class="set-label">Двухфакторная аутентификация</span>
-        <span class="set-badge" id="set2faBadge">выкл</span>
+        <span class="set-label">Р”РІСѓС…С„Р°РєС‚РѕСЂРЅР°СЏ Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёСЏ</span>
+        <span class="set-badge" id="set2faBadge">РІС‹РєР»</span>
       </div>
       <div class="set-row" id="setPassRow">
         <span class="set-ico">KEY</span>
-        <span class="set-label">Сменить пароль</span>
-        <button class="btn ghost sm" id="setOpenPass">Изменить</button>
+        <span class="set-label">РЎРјРµРЅРёС‚СЊ РїР°СЂРѕР»СЊ</span>
+        <button class="btn ghost sm" id="setOpenPass">РР·РјРµРЅРёС‚СЊ</button>
       </div>
     </div>
 
     <div class="set-section">
-      <div class="set-h">Внешний вид</div>
+      <div class="set-h">Р’РЅРµС€РЅРёР№ РІРёРґ</div>
       <div class="set-row" id="setThemeRow">
         <span class="set-ico">SUN</span>
-        <span class="set-label">Тёмная тема</span>
+        <span class="set-label">РўС‘РјРЅР°СЏ С‚РµРјР°</span>
         <label class="switch"><input type="checkbox" id="setTheme"><span class="slider"></span></label>
       </div>
       <div class="set-row" id="setAccRow">
         <span class="set-ico">PAL</span>
-        <span class="set-label">Цвет интерфейса</span>
+        <span class="set-label">Р¦РІРµС‚ РёРЅС‚РµСЂС„РµР№СЃР°</span>
         <div class="acc-grid sm" id="setAccGrid"></div>
       </div>
       <div class="set-row" id="setBlurRow">
         <span class="set-ico">BLUR</span>
-        <span class="set-label">Размытие фона чата</span>
+        <span class="set-label">Р Р°Р·РјС‹С‚РёРµ С„РѕРЅР° С‡Р°С‚Р°</span>
         <label class="switch"><input type="checkbox" id="setBlur"><span class="slider"></span></label>
       </div>
       <div class="set-row" id="setWallRow">
         <span class="set-ico">IMG</span>
-        <span class="set-label">Обои чата</span>
-        <button class="btn ghost sm" id="setOpenProfile">Обои</button>
+        <span class="set-label">РћР±РѕРё С‡Р°С‚Р°</span>
+        <button class="btn ghost sm" id="setOpenProfile">РћР±РѕРё</button>
       </div>
     </div>
 
     <div class="set-section">
-      <div class="set-h">Уведомления</div>
+      <div class="set-h">РЈРІРµРґРѕРјР»РµРЅРёСЏ</div>
       <div class="set-row" id="setNotifRow">
         <span class="set-ico">BEL</span>
-        <span class="set-label">Уведомления</span>
+        <span class="set-label">РЈРІРµРґРѕРјР»РµРЅРёСЏ</span>
         <label class="switch"><input type="checkbox" id="setNotif"><span class="slider"></span></label>
       </div>
-      <p class="set-note">Уведомления в приложении. Системные push в APK-версии пока не настроены.</p>
+      <p class="set-note">РЈРІРµРґРѕРјР»РµРЅРёСЏ РІ РїСЂРёР»РѕР¶РµРЅРёРё. РЎРёСЃС‚РµРјРЅС‹Рµ push РІ APK-РІРµСЂСЃРёРё РїРѕРєР° РЅРµ РЅР°СЃС‚СЂРѕРµРЅС‹.</p>
     </div>
 
     <div class="set-section">
-      <div class="set-h">О приложении</div>
+      <div class="set-h">Рћ РїСЂРёР»РѕР¶РµРЅРёРё</div>
       <div class="set-row">
-        <span class="set-label">Версия</span>
+        <span class="set-label">Р’РµСЂСЃРёСЏ</span>
         <span class="set-sub">slavgram 1.0</span>
       </div>
     </div>
 
     <div class="modal-actions">
       <span style="flex:1"></span>
-      <button class="btn primary" id="setClose">Готово</button>
+      <button class="btn primary" id="setClose">Р“РѕС‚РѕРІРѕ</button>
     </div>
   </div>
 </div>
@@ -524,13 +563,13 @@
 <!-- active sessions modal -->
 <div class="overlay" id="sessionsOverlay">
   <div class="modal">
-    <h3>Активные сессии</h3>
-    <p class="sub">Все устройства, где выполнен вход в аккаунт.</p>
+    <h3>РђРєС‚РёРІРЅС‹Рµ СЃРµСЃСЃРёРё</h3>
+    <p class="sub">Р’СЃРµ СѓСЃС‚СЂРѕР№СЃС‚РІР°, РіРґРµ РІС‹РїРѕР»РЅРµРЅ РІС…РѕРґ РІ Р°РєРєР°СѓРЅС‚.</p>
     <div id="sessionsList"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="sessionsClose">Закрыть</button>
+      <button class="btn ghost" id="sessionsClose">Р—Р°РєСЂС‹С‚СЊ</button>
       <span style="flex:1"></span>
-      <button class="btn danger" id="sessionsLogoutAll" style="display:none;">Выйти со всех</button>
+      <button class="btn danger" id="sessionsLogoutAll" style="display:none;">Р’С‹Р№С‚Рё СЃРѕ РІСЃРµС…</button>
     </div>
   </div>
 </div>
@@ -538,13 +577,13 @@
 <!-- add contact modal -->
 <div class="overlay" id="addOverlay">
   <div class="modal">
-    <h3>Добавить контакт</h3>
-    <p class="sub">Введите юзернейм собеседника</p>
-    <input type="text" id="findUser" maxlength="24" placeholder="@юзернейм">
+    <h3>Р”РѕР±Р°РІРёС‚СЊ РєРѕРЅС‚Р°РєС‚</h3>
+    <p class="sub">Р’РІРµРґРёС‚Рµ СЋР·РµСЂРЅРµР№Рј СЃРѕР±РµСЃРµРґРЅРёРєР°</p>
+    <input type="text" id="findUser" maxlength="24" placeholder="@СЋР·РµСЂРЅРµР№Рј">
     <div class="hint" id="findHint"></div>
     <div id="findResult"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="addCancel">Закрыть</button>
+      <button class="btn ghost" id="addCancel">Р—Р°РєСЂС‹С‚СЊ</button>
     </div>
   </div>
 </div>
@@ -552,17 +591,17 @@
 <!-- new group modal -->
 <div class="overlay" id="groupOverlay">
   <div class="modal">
-    <h3>Новая группа</h3>
-    <label>Название группы</label>
-    <input type="text" id="groupName" maxlength="40" placeholder="Название группы">
-    <label>Иконка</label>
+    <h3>РќРѕРІР°СЏ РіСЂСѓРїРїР°</h3>
+    <label>РќР°Р·РІР°РЅРёРµ РіСЂСѓРїРїС‹</label>
+    <input type="text" id="groupName" maxlength="40" placeholder="РќР°Р·РІР°РЅРёРµ РіСЂСѓРїРїС‹">
+    <label>РРєРѕРЅРєР°</label>
     <div class="avatar-grid" id="groupAvatarGrid"></div>
-    <label>Участники</label>
+    <label>РЈС‡Р°СЃС‚РЅРёРєРё</label>
     <div id="groupMembersList" class="group-members"></div>
     <div class="hint" id="groupHint"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="groupCancel">Отмена</button>
-      <button class="btn primary" id="groupCreate">Создать</button>
+      <button class="btn ghost" id="groupCancel">РћС‚РјРµРЅР°</button>
+      <button class="btn primary" id="groupCreate">РЎРѕР·РґР°С‚СЊ</button>
     </div>
   </div>
 </div>
@@ -570,16 +609,16 @@
 <!-- group info modal -->
 <div class="overlay" id="groupInfoOverlay">
   <div class="modal">
-    <h3>Участники группы</h3>
+    <h3>РЈС‡Р°СЃС‚РЅРёРєРё РіСЂСѓРїРїС‹</h3>
     <div id="groupInfoMembers"></div>
-    <label>Добавить участника</label>
+    <label>Р”РѕР±Р°РІРёС‚СЊ СѓС‡Р°СЃС‚РЅРёРєР°</label>
     <div style="display:flex;gap:6px;margin-top:6px;">
-      <input type="text" id="groupAddUser" maxlength="24" placeholder="@юзернейм" style="flex:1;">
-      <button class="btn primary" id="groupAddUserBtn">Добавить</button>
+      <input type="text" id="groupAddUser" maxlength="24" placeholder="@СЋР·РµСЂРЅРµР№Рј" style="flex:1;">
+      <button class="btn primary" id="groupAddUserBtn">Р”РѕР±Р°РІРёС‚СЊ</button>
     </div>
     <div class="hint" id="groupInfoHint"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="groupInfoClose">Закрыть</button>
+      <button class="btn ghost" id="groupInfoClose">Р—Р°РєСЂС‹С‚СЊ</button>
     </div>
   </div>
 </div>
@@ -587,14 +626,14 @@
 <!-- new folder modal -->
 <div class="overlay" id="folderOverlay">
   <div class="modal">
-    <h3>Новая папка</h3>
-    <p class="sub">Объедините чаты и группы в одну папку.</p>
-    <label>Название папки</label>
-    <input type="text" id="folderName" maxlength="30" placeholder="Например: Работа">
+    <h3>РќРѕРІР°СЏ РїР°РїРєР°</h3>
+    <p class="sub">РћР±СЉРµРґРёРЅРёС‚Рµ С‡Р°С‚С‹ Рё РіСЂСѓРїРїС‹ РІ РѕРґРЅСѓ РїР°РїРєСѓ.</p>
+    <label>РќР°Р·РІР°РЅРёРµ РїР°РїРєРё</label>
+    <input type="text" id="folderName" maxlength="30" placeholder="РќР°РїСЂРёРјРµСЂ: Р Р°Р±РѕС‚Р°">
     <div class="hint" id="folderHint"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="folderCancel">Отмена</button>
-      <button class="btn primary" id="folderCreate">Создать</button>
+      <button class="btn ghost" id="folderCancel">РћС‚РјРµРЅР°</button>
+      <button class="btn primary" id="folderCreate">РЎРѕР·РґР°С‚СЊ</button>
     </div>
   </div>
 </div>
@@ -602,19 +641,19 @@
 <!-- new channel modal -->
 <div class="overlay" id="chanOverlay">
   <div class="modal">
-    <h3>Новый канал</h3>
-    <p class="sub">Канал — это лента постов автора. Участники читают, пишете только вы.</p>
-    <label>Название канала</label>
-    <input type="text" id="chanName" maxlength="50" placeholder="Название канала">
-    <label>Описание</label>
-    <textarea id="chanDesc" maxlength="200" rows="2" placeholder="О чём этот канал"></textarea>
-    <label>Аватар</label>
+    <h3>РќРѕРІС‹Р№ РєР°РЅР°Р»</h3>
+    <p class="sub">РљР°РЅР°Р» вЂ” СЌС‚Рѕ Р»РµРЅС‚Р° РїРѕСЃС‚РѕРІ Р°РІС‚РѕСЂР°. РЈС‡Р°СЃС‚РЅРёРєРё С‡РёС‚Р°СЋС‚, РїРёС€РµС‚Рµ С‚РѕР»СЊРєРѕ РІС‹.</p>
+    <label>РќР°Р·РІР°РЅРёРµ РєР°РЅР°Р»Р°</label>
+    <input type="text" id="chanName" maxlength="50" placeholder="РќР°Р·РІР°РЅРёРµ РєР°РЅР°Р»Р°">
+    <label>РћРїРёСЃР°РЅРёРµ</label>
+    <textarea id="chanDesc" maxlength="200" rows="2" placeholder="Рћ С‡С‘Рј СЌС‚РѕС‚ РєР°РЅР°Р»"></textarea>
+    <label>РђРІР°С‚Р°СЂ</label>
     <div class="avatar-grid" id="chanAvatarGrid"></div>
     <div class="hint" id="chanHint"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="chanJoinLocalBtn">Подписаться</button>
-      <button class="btn ghost" id="chanCancel">Отмена</button>
-      <button class="btn primary" id="chanCreate">Создать</button>
+      <button class="btn ghost" id="chanJoinLocalBtn">РџРѕРґРїРёСЃР°С‚СЊСЃСЏ</button>
+      <button class="btn ghost" id="chanCancel">РћС‚РјРµРЅР°</button>
+      <button class="btn primary" id="chanCreate">РЎРѕР·РґР°С‚СЊ</button>
     </div>
   </div>
 </div>
@@ -622,17 +661,17 @@
 <!-- join channel modal -->
 <div class="overlay" id="chanJoinOverlay">
   <div class="modal">
-    <h3>Подписаться на канал</h3>
-    <p class="sub">Найдите канал по юзернейму автора или названию.</p>
-    <input type="text" id="chanSearchUser" maxlength="24" placeholder="Поиск по юзернейму автора">
+    <h3>РџРѕРґРїРёСЃР°С‚СЊСЃСЏ РЅР° РєР°РЅР°Р»</h3>
+    <p class="sub">РќР°Р№РґРёС‚Рµ РєР°РЅР°Р» РїРѕ СЋР·РµСЂРЅРµР№РјСѓ Р°РІС‚РѕСЂР° РёР»Рё РЅР°Р·РІР°РЅРёСЋ.</p>
+    <input type="text" id="chanSearchUser" maxlength="24" placeholder="РџРѕРёСЃРє РїРѕ СЋР·РµСЂРЅРµР№РјСѓ Р°РІС‚РѕСЂР°">
     <div class="hint" id="chanSearchHint"></div>
     <div id="chanSearchResult"></div>
-    <div class="chan-name-sep">или</div>
-    <input type="text" id="chanSearchName" maxlength="50" placeholder="Название канала">
+    <div class="chan-name-sep">РёР»Рё</div>
+    <input type="text" id="chanSearchName" maxlength="50" placeholder="РќР°Р·РІР°РЅРёРµ РєР°РЅР°Р»Р°">
     <div class="hint" id="chanNameSearchHint"></div>
     <div id="chanNameSearchResult"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="chanJoinCancel">Отмена</button>
+      <button class="btn ghost" id="chanJoinCancel">РћС‚РјРµРЅР°</button>
     </div>
   </div>
 </div>
@@ -640,10 +679,10 @@
 <!-- assign chat to folder modal -->
 <div class="overlay" id="folderAssignOverlay">
   <div class="modal">
-    <h3>Поместить в папку</h3>
+    <h3>РџРѕРјРµСЃС‚РёС‚СЊ РІ РїР°РїРєСѓ</h3>
     <div id="folderAssignList"></div>
     <div class="modal-actions">
-      <button class="btn ghost" id="folderAssignCancel">Закрыть</button>
+      <button class="btn ghost" id="folderAssignCancel">Р—Р°РєСЂС‹С‚СЊ</button>
     </div>
   </div>
 </div>
@@ -665,7 +704,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const serverTS = firebase.firestore.FieldValue.serverTimestamp;
 
-const EMOJI = ["😀","😄","😂","🤣","😊","😉","😍","🥰","😘","😎","🤔","🤗","🙂","😅","😢","😭","😡","🥳","😴","🤯","👍","👎","🙏","👋","✌️","🤝","💪","🙌","👏","❤️","🔥","✨","⭐","🎉","☀️","🌧️","❄️","🌲","🌿","🏡","🌾","🍎","🍞","🥟","🥗","☕","🍺","🍷","🍯","🐝","🐺","🐻","🦌","🐓","🕊️","⚔️","🛡️","🏹","⛪","🧺","🌙","⭐"];
+const EMOJI = ["рџЂ","рџ„","рџ‚","рџ¤Ј","рџЉ","рџ‰","рџЌ","рџҐ°","рџ","рџЋ","рџ¤”","рџ¤—","рџ™‚","рџ…","рџў","рџ­","рџЎ","рџҐі","рџґ","рџ¤Ї","рџ‘Ќ","рџ‘Ћ","рџ™Џ","рџ‘‹","вњЊпёЏ","рџ¤ќ","рџ’Є","рџ™Њ","рџ‘Џ","вќ¤пёЏ","рџ”Ґ","вњЁ","в­ђ","рџЋ‰","вЂпёЏ","рџЊ§пёЏ","вќ„пёЏ","рџЊІ","рџЊї","рџЏЎ","рџЊѕ","рџЌЋ","рџЌћ","рџҐџ","рџҐ—","в•","рџЌє","рџЌ·","рџЌЇ","рџђќ","рџђє","рџђ»","рџ¦Њ","рџђ“","рџ•ЉпёЏ","вљ”пёЏ","рџ›ЎпёЏ","рџЏ№","в›Є","рџ§є","рџЊ™","в­ђ"];
 const SELF_COLORS = ["#b0b0b0","#9a9a9a","#c4c4c4","#8a8a8a","#a5a5a5","#bdbdbd","#929292","#adadad"];
 
 // ===== session / state =====
@@ -759,15 +798,15 @@ function isOnline(uid){
 }
 function lastSeenLabel(uid){
   const p = onlineCache[uid];
-  if (!p || !p.lastSeen) return "был(а) недавно";
-  if (isOnline(uid)) return "в сети";
+  if (!p || !p.lastSeen) return "Р±С‹Р»(Р°) РЅРµРґР°РІРЅРѕ";
+  if (isOnline(uid)) return "РІ СЃРµС‚Рё";
   const t = p.lastSeen && p.lastSeen.toDate ? p.lastSeen.toDate() : null;
-  if (!t) return "был(а) недавно";
+  if (!t) return "Р±С‹Р»(Р°) РЅРµРґР°РІРЅРѕ";
   const diff = Date.now() - t.getTime();
-  if (diff < 60*1000) return "был(а) только что";
-  if (diff < 3600*1000) return "был(а) " + Math.floor(diff/60000) + " мин назад";
+  if (diff < 60*1000) return "Р±С‹Р»(Р°) С‚РѕР»СЊРєРѕ С‡С‚Рѕ";
+  if (diff < 3600*1000) return "Р±С‹Р»(Р°) " + Math.floor(diff/60000) + " РјРёРЅ РЅР°Р·Р°Рґ";
   const d = new Date(t);
-  return "был(а) " + d.toLocaleDateString("ru-RU",{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'});
+  return "Р±С‹Р»(Р°) " + d.toLocaleDateString("ru-RU",{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'});
 }
 
 const el = {
@@ -814,6 +853,7 @@ ICO.smile       = ICO.svg('<circle cx="12" cy="12" r="9"/><path d="M8.6 14.4s1 1
 ICO.mic         = ICO.svg('<path d="M12 3a4 4 0 00-4 4v5a4 4 0 008 0V7a4 4 0 00-4-4z"/><path d="M19 11a7 7 0 01-14 0M12 18v3" stroke-width="2"/>');
 ICO.micFill     = ICO.svgFill('<path d="M12 14a3 3 0 003-3V6a3 3 0 10-6 0v5a3 3 0 003 3z"/><path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>');
 ICO.micSlash    = ICO.svg('<path d="M12 3a4 4 0 00-4 4v5a4 4 0 008 0V7a4 4 0 00-1-2.6"/><path d="M19 11a7 7 0 01-1 3.6M12 18v3"/><path d="M3 3l18 18" stroke-width="2"/><path d="M5 11H3a9 9 0 002.6 6.4"/>');
+// Telegram-style send: skewed paper plane pointing up-right
 ICO.paperplane  = ICO.svgFill('<path d="M2.5 11.8L20 3.2c.8-.4 1.6.4 1.2 1.2l-8.6 17.5c-.4.9-1.6.9-2-.1l-2.3-7-7-2.3c-.9-.4-.9-1.8 0-2.2z"/>');
 ICO.moon        = ICO.svg('<path d="M20.5 13A8.5 8.5 0 0111 3.5a8.5 8.5 0 109.5 9.5z" stroke-width="1.9"/>');
 ICO.sun         = ICO.svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-width="1.9"/>');
@@ -828,6 +868,7 @@ ICO.device      = ICO.svg('<rect x="7" y="2" width="10" height="20" rx="2.5"/><p
 ICO.photo       = ICO.svg('<rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M4 17l5-5 3 3 3-3 5 5"/>');
 ICO.gifBox      = ICO.svg('<rect x="3" y="6" width="18" height="12" rx="3"/><path d="M9 15V9M9 12h2.5M14 9h2.5a1 1 0 010 3h-1a1 1 0 000 3h2"/>');
 ICO.archive     = ICO.svg('<rect x="3" y="4" width="18" height="4" rx="1.5"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><path d="M10 12h4"/>');
+// Telegram-style camera/videocircle: playful rounded with pupil (like TG append-camera)
 ICO.video       = ICO.svgFill('<path d="M12 4a8 8 0 100 16 8 8 0 000-16zm0 2.5A5.5 5.5 0 1112 17.5 5.5 5.5 0 0112 6.5z"/><path d="M12 12.5a1 1 0 100-2 1 1 0 000 2z" fill="none" stroke-width="1.4"/>');
 ICO.paintbrush  = ICO.svg('<path d="M4 20c0-4 6-12 12-13 2-.3 3 .5 3 2-1 4-8 9-12 9z"/><path d="M16 7l-5 5"/>');
 ICO.doc         = ICO.svg('<path d="M6 2h8l4 4v16H6V2z"/><path d="M14 2v4h4M9 13h6M9 16h6M9 10h2"/>');
@@ -872,9 +913,9 @@ function setConn(ok){
   const isOff = ok === false;
   el.conn.classList.toggle("online", isOk);
   el.conn.classList.toggle("offline", isOff);
-  if (isOk) el.connText.textContent = "Синхронизация включена";
-  else if (isOff) el.connText.textContent = "Офлайн — проверьте интернет";
-  else el.connText.textContent = "Подключение…";
+  if (isOk) el.connText.textContent = "РЎРёРЅС…СЂРѕРЅРёР·Р°С†РёСЏ РІРєР»СЋС‡РµРЅР°";
+  else if (isOff) el.connText.textContent = "РћС„Р»Р°Р№РЅ вЂ” РїСЂРѕРІРµСЂСЊС‚Рµ РёРЅС‚РµСЂРЅРµС‚";
+  else el.connText.textContent = "РџРѕРґРєР»СЋС‡РµРЅРёРµвЂ¦";
 }
 function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function fmtToday(){ return new Date().toLocaleDateString("ru-RU", { day:"numeric", month:"long" }); }
@@ -906,10 +947,103 @@ function enterApp(){
   startListeners();
   subscribePresence();
   startPresence();
+  maybeShowSetup();
 }
 
+// ---- setup wizard (PC / first launch) ----
+let setupStep = 1;
+let setupAvatar = "рџ•ЉпёЏ";
+function setupOverlay(){ return document.getElementById("setupOverlay"); }
+function fillSetupAvatar(){
+  const g = document.getElementById("setupAvatarGrid");
+  g.innerHTML = "";
+  EMOJI.forEach(e => {
+    const b = document.createElement("button"); b.textContent = e;
+    if (e === setupAvatar) b.className = "sel";
+    b.onclick = () => { g.querySelectorAll("button").forEach(x=>x.classList.remove("sel")); b.className="sel"; setupAvatar=e; };
+    g.appendChild(b);
+  });
+}
+function fillSetupAcc(){
+  const grid = document.getElementById("setupAccGrid");
+  grid.innerHTML = "";
+  ACC_COLORS.forEach(a => {
+    const b = document.createElement("button");
+    b.style.background = a.color; b.title = a.name;
+    if (a.key === (localStorage.getItem("slav_acc") || "blue")) b.classList.add("sel");
+    b.onclick = () => {
+      grid.querySelectorAll("button").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel");
+      localStorage.setItem("slav_acc", a.key);
+      applyTheme();
+    };
+    grid.appendChild(b);
+  });
+}
+function fillSetupWall(){
+  const grid = document.getElementById("setupWallGrid");
+  grid.innerHTML = "";
+  WALLPAPERS.forEach(w => {
+    const b = document.createElement("button");
+    b.style.background = w.css;
+    if (w.key === wallpaper) b.classList.add("sel");
+    b.onclick = () => {
+      grid.querySelectorAll("button").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel");
+      wallpaper = w.key; applyWallpaper();
+    };
+    grid.appendChild(b);
+  });
+  document.getElementById("setupWallColor").value = wallpaperToColor(wallpaper);
+}
+function setupShow(s){
+  setupStep = s;
+  ["setupStep1","setupStep2","setupStep3","setupStep4"].forEach((id,i)=>{ document.getElementById(id).style.display = (i+1===s) ? "block" : "none"; });
+  document.getElementById("setupSub").textContent = "РЁР°Рі " + s + " РёР· 4 вЂ” " + (["РџСЂРѕС„РёР»СЊ","РђРІР°С‚Р°СЂ","РўРµРјР° Рё С†РІРµС‚","Р¤РѕРЅ С‡Р°С‚Р°"])[s-1];
+  document.getElementById("setupNext").textContent = s === 4 ? "Р“РѕС‚РѕРІРѕ вњ“" : "Р”Р°Р»РµРµ в†’";
+}
+function maybeShowSetup(){
+  // PC-only: run on screens wider than 720px; show only once per device
+  if (window.innerWidth <= 720) return;
+  if (localStorage.getItem("slav_setup_done")) return;
+  fillSetupAvatar(); fillSetupAcc(); fillSetupWall();
+  document.getElementById("setupName").value = me.name || "";
+  document.getElementById("setupBio").value = me.bio || "";
+  setupShow(1);
+  setupOverlay().classList.add("show");
+}
+function finishSetup(){
+  const name = document.getElementById("setupName").value.trim() || me.name;
+  const bio = document.getElementById("setupBio").value.trim();
+  localStorage.setItem("slav_setup_done", "1");
+  setupOverlay().classList.remove("show");
+  // persist profile changes (name, bio, avatar) to Firestore if changed
+  const upd = { name, bio };
+  const changed = name !== me.name || bio !== (me.bio||"") || setupAvatar !== (me.avatar||"");
+  if (setupAvatar !== me.avatar) upd.avatar = setupAvatar;
+  if (changed) {
+    db.collection("users").doc(me.uid).update(upd).then(()=>{
+      me.name = name; me.bio = bio; me.avatar = setupAvatar; persistSession(); renderProfile();
+    }).catch(e=>console.warn(e));
+  }
+  applyTheme();
+}
+document.getElementById("setupNext").onclick = () => {
+  if (setupStep < 4) setupShow(setupStep + 1);
+  else finishSetup();
+};
+document.getElementById("setupSkip").onclick = () => {
+  localStorage.setItem("slav_setup_done", "1");
+  setupOverlay().classList.remove("show");
+};
+document.getElementById("setupThemeDark").onclick = () => { state.theme = "dark"; saveTheme(); applyTheme(); };
+document.getElementById("setupThemeLight").onclick = () => { state.theme = "light"; saveTheme(); applyTheme(); };
+document.getElementById("setupWallColor").addEventListener("input", (e) => {
+  wallpaper = "custom"; customColor = e.target.value; applyWallpaper();
+});
+
 // ---- register ----
-let regAvatar = "🕊️";
+let regAvatar = "рџ•ЉпёЏ";
 function fillRegAvatar(){
   const g = document.getElementById("regAvatarGrid");
   g.innerHTML = "";
@@ -947,30 +1081,30 @@ let regUserChecked = false;
 document.getElementById("regUser").addEventListener("input", async (e) => {
   const u = normUser(e.target.value);
   regUserChecked = false;
-  if (!validUser(u)) { setHint("regHint", "Ник: 3–24 символа, латиница a-z, цифры, _", false); return; }
+  if (!validUser(u)) { setHint("regHint", "РќРёРє: 3вЂ“24 СЃРёРјРІРѕР»Р°, Р»Р°С‚РёРЅРёС†Р° a-z, С†РёС„СЂС‹, _", false); return; }
   const free = await checkUsername(u);
-  if (!free) { setHint("regHint", "Этот юзернейм уже занят", false); return; }
+  if (!free) { setHint("regHint", "Р­С‚РѕС‚ СЋР·РµСЂРЅРµР№Рј СѓР¶Рµ Р·Р°РЅСЏС‚", false); return; }
   regUserChecked = true;
-  setHint("regHint", "Юзернейм свободен ✓", true);
+  setHint("regHint", "Р®Р·РµСЂРЅРµР№Рј СЃРІРѕР±РѕРґРµРЅ вњ“", true);
 });
 document.getElementById("doRegister").onclick = async () => {
   const username = normUser(document.getElementById("regUser").value);
   const name = document.getElementById("regName").value.trim() || username;
   const pass = document.getElementById("regPass").value;
   const but = document.getElementById("doRegister");
-  if (!validUser(username)) { setHint("regHint","Некорректный юзернейм", false); return; }
+  if (!validUser(username)) { setHint("regHint","РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ СЋР·РµСЂРЅРµР№Рј", false); return; }
   if (!regUserChecked) {
     const free = await checkUsername(username);
-    if (!free) { setHint("regHint","Этот юзернейм уже занят", false); return; }
+    if (!free) { setHint("regHint","Р­С‚РѕС‚ СЋР·РµСЂРЅРµР№Рј СѓР¶Рµ Р·Р°РЅСЏС‚", false); return; }
     regUserChecked = true;
   }
-  if (pass.length < 6) { setHint("regPassHint","Пароль минимум 6 символов", false); return; }
+  if (pass.length < 6) { setHint("regPassHint","РџР°СЂРѕР»СЊ РјРёРЅРёРјСѓРј 6 СЃРёРјРІРѕР»РѕРІ", false); return; }
   but.disabled = true;
   try {
     const uid = uuid();
     // enforce uniqueness at write time by using username as part of id? username may change, so keep uid; rely on where check. Add collision guard doc.
     const guard = await db.collection("usernames").doc(username).get();
-    if (guard.exists) { setHint("regHint","Этот юзернейм уже занят", false); but.disabled=false; return; }
+    if (guard.exists) { setHint("regHint","Р­С‚РѕС‚ СЋР·РµСЂРЅРµР№Рј СѓР¶Рµ Р·Р°РЅСЏС‚", false); but.disabled=false; return; }
     // claim username atomically-ish
     await db.collection("usernames").doc(username).set({ uid, created: serverTS() });
     await db.collection("users").doc(uid).set({
@@ -982,12 +1116,12 @@ document.getElementById("doRegister").onclick = async () => {
   } catch(err){
     console.warn(err);
     // if claim failed (concurrent), username probably taken
-    setHint("regHint", err.message || "Ошибка регистрации", false);
+    setHint("regHint", err.message || "РћС€РёР±РєР° СЂРµРіРёСЃС‚СЂР°С†РёРё", false);
     but.disabled = false;
   }
 };
 
-// simple hash — NOT secure, this is demo. Password stored weak by design for the exercise.
+// simple hash вЂ” NOT secure, this is demo. Password stored weak by design for the exercise.
 function hash(s){ let h=0,i; s=String(s||""); for(i=0;i<s.length;i++){h=(Math.imul(31,h)+s.charCodeAt(i))|0;} return "h"+(h>>>0).toString(36); }
 
 // ---- login ----
@@ -996,19 +1130,19 @@ document.getElementById("doLogin").onclick = async () => {
   const pass = document.getElementById("loginPass").value;
   const but = document.getElementById("doLogin");
   const hint = document.getElementById("loginHint");
-  if (!username || !pass) { setHint("loginHint","Введите юзернейм и пароль", false); return; }
+  if (!username || !pass) { setHint("loginHint","Р’РІРµРґРёС‚Рµ СЋР·РµСЂРЅРµР№Рј Рё РїР°СЂРѕР»СЊ", false); return; }
   but.disabled = true;
   try {
     const q = await db.collection("users").where("username", "==", username).limit(1).get();
-    if (q.empty) { setHint("loginHint","Пользователь не найден", false); but.disabled=false; return; }
+    if (q.empty) { setHint("loginHint","РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ", false); but.disabled=false; return; }
     const doc = q.docs[0];
     const data = doc.data();
-    if (data.passHash !== hash(pass)) { setHint("loginHint","Неверный пароль", false); but.disabled=false; return; }
+    if (data.passHash !== hash(pass)) { setHint("loginHint","РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ", false); but.disabled=false; return; }
     me = { uid: doc.id, username: data.username, name: data.name, avatar: data.avatar, bio: data.bio, avatarImg: data.avatarImg };
     persistSession();
     enterApp();
   } catch(err){
-    console.warn(err); setHint("loginHint","Ошибка входа", false); but.disabled=false;
+    console.warn(err); setHint("loginHint","РћС€РёР±РєР° РІС…РѕРґР°", false); but.disabled=false;
   }
 };
 // try auto-login from session
@@ -1049,7 +1183,7 @@ function setNotifEnabled(v){
   notifEnabled = v;
   localStorage.setItem("slav_notif", v ? "on" : "off");
   renderNotifBtn();
-  if (v) nativeToast("Уведомления включены");
+  if (v) nativeToast("РЈРІРµРґРѕРјР»РµРЅРёСЏ РІРєР»СЋС‡РµРЅС‹");
 }
 if (el.notifBtn) el.notifBtn.onclick = () => setNotifEnabled(!notifEnabled);
 function showNotification(title, body){
@@ -1071,7 +1205,7 @@ function maybeNotify(channel, msg, senderName){
   // stay silent if this chat is currently open
   const cur = state.current;
   if (cur && byId(cur) && channels[cur && byId(cur).otherUid] === channel) return false;
-  showNotification(senderName || "Новое сообщение", msg.text || "");
+  showNotification(senderName || "РќРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ", msg.text || "");
   return false;
 }
 
@@ -1085,7 +1219,7 @@ function renderProfile(){
     el.brandAvatar.textContent = "";
   } else {
     el.brandAvatar.style.backgroundImage = "";
-    el.brandAvatar.textContent = me.avatar || "🕊️";
+    el.brandAvatar.textContent = me.avatar || "рџ•ЉпёЏ";
   }
   el.brandHandle.textContent = "@" + me.username;
   document.getElementById("profHandleStatic").textContent = "@" + me.username;
@@ -1098,10 +1232,10 @@ function setAvatarDom(elm, item){
     elm.textContent = "";
   } else if (item) {
     elm.style.backgroundImage = "";
-    elm.textContent = item.avatar || "🕊️";
+    elm.textContent = item.avatar || "рџ•ЉпёЏ";
   }
 }
-let profAvatar = "🕊️";
+let profAvatar = "рџ•ЉпёЏ";
 let profImg = null;
 el.brandBtn.onclick = () => {
   if (!me) return;
@@ -1134,7 +1268,7 @@ document.addEventListener("keydown", (e) => {
 document.getElementById("profImage").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  if (file.size > 400000) { alert("Картинка слишком большая (макс ~400 КБ)"); return; }
+  if (file.size > 400000) { alert("РљР°СЂС‚РёРЅРєР° СЃР»РёС€РєРѕРј Р±РѕР»СЊС€Р°СЏ (РјР°РєСЃ ~400 РљР‘)"); return; }
   const reader = new FileReader();
   reader.onload = () => { profImg = reader.result; };
   reader.readAsDataURL(file);
@@ -1157,12 +1291,12 @@ document.getElementById("profSave").onclick = async () => {
 };
 // ===== wallpaper (chat background) =====
 const WALLPAPERS = [
-  { key:"default", name:"Светлый", css:"#fbfbfb" },
-  { key:"grey", name:"Серый", css:"#e4e4e4" },
-  { key:"blue", name:"Голубой", css:"#dbe7f2" },
-  { key:"green", name:"Зелёный", css:"#dfeeDA".toLowerCase() },
-  { key:"warm", name:"Бежевый", css:"#f0e6d6" },
-  { key:"dusk", name:"Тёмный", css:"#2a2a2a" },
+  { key:"default", name:"РЎРІРµС‚Р»С‹Р№", css:"#fbfbfb" },
+  { key:"grey", name:"РЎРµСЂС‹Р№", css:"#e4e4e4" },
+  { key:"blue", name:"Р“РѕР»СѓР±РѕР№", css:"#dbe7f2" },
+  { key:"green", name:"Р—РµР»С‘РЅС‹Р№", css:"#dfeeDA".toLowerCase() },
+  { key:"warm", name:"Р‘РµР¶РµРІС‹Р№", css:"#f0e6d6" },
+  { key:"dusk", name:"РўС‘РјРЅС‹Р№", css:"#2a2a2a" },
 ];
 let customColor = localStorage.getItem("slav_wallcolor") || "#fbfbfb";
 function wallpaperToColor(key){
@@ -1188,7 +1322,7 @@ function fillWallpaperGrid(){
   });
   // "my image" swatch
   const imgBtn = document.createElement("button");
-  imgBtn.title = "Моё изображение";
+  imgBtn.title = "РњРѕС‘ РёР·РѕР±СЂР°Р¶РµРЅРёРµ";
   imgBtn.style.background = wallImage ? `url(${wallImage}) center/cover` : "repeating-linear-gradient(45deg,#d0d0d0,#d0d0d0 6px,#e8e8e8 6px,#e8e8e8 12px)";
   imgBtn.onclick = () => {
     g.querySelectorAll("button").forEach(x=>x.classList.remove("sel"));
@@ -1208,12 +1342,12 @@ document.getElementById("wallpaperColor").addEventListener("input", (e) => {
 document.getElementById("wallImage").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  if (file.size > 800000) { setHint("wallImageHint","Картинка слишком большая (макс ~800 КБ)", false); return; }
+  if (file.size > 800000) { setHint("wallImageHint","РљР°СЂС‚РёРЅРєР° СЃР»РёС€РєРѕРј Р±РѕР»СЊС€Р°СЏ (РјР°РєСЃ ~800 РљР‘)", false); return; }
   const reader = new FileReader();
   reader.onload = () => {
     wallImage = reader.result;
     wallpaper = "image";
-    setHint("wallImageHint","Фон загружен. Нажмите «Сохранить».", true);
+    setHint("wallImageHint","Р¤РѕРЅ Р·Р°РіСЂСѓР¶РµРЅ. РќР°Р¶РјРёС‚Рµ В«РЎРѕС…СЂР°РЅРёС‚СЊВ».", true);
     fillWallpaperGrid();
     applyWallpaper();
   };
@@ -1261,17 +1395,17 @@ document.getElementById("passCancel").onclick = () => document.getElementById("p
 document.getElementById("passSave").onclick = async () => {
   const cur = document.getElementById("passCur").value;
   const neu = document.getElementById("passNew").value;
-  if (!cur || !neu) { setHint("passHint","Заполните оба поля", false); return; }
-  if (neu.length < 6) { setHint("passHint","Новый пароль минимум 6 символов", false); return; }
+  if (!cur || !neu) { setHint("passHint","Р—Р°РїРѕР»РЅРёС‚Рµ РѕР±Р° РїРѕР»СЏ", false); return; }
+  if (neu.length < 6) { setHint("passHint","РќРѕРІС‹Р№ РїР°СЂРѕР»СЊ РјРёРЅРёРјСѓРј 6 СЃРёРјРІРѕР»РѕРІ", false); return; }
   try {
     const doc = await db.collection("users").doc(me.uid).get();
     if (!doc.exists || doc.data().passHash !== hash(cur)) {
-      setHint("passHint","Текущий пароль неверен", false); return;
+      setHint("passHint","РўРµРєСѓС‰РёР№ РїР°СЂРѕР»СЊ РЅРµРІРµСЂРµРЅ", false); return;
     }
     await db.collection("users").doc(me.uid).update({ passHash: hash(neu) });
-    setHint("passHint","Пароль изменён", true);
+    setHint("passHint","РџР°СЂРѕР»СЊ РёР·РјРµРЅС‘РЅ", true);
     setTimeout(() => document.getElementById("passOverlay").classList.remove("show"), 800);
-  } catch(e){ console.warn(e); setHint("passHint","Ошибка изменения", false); }
+  } catch(e){ console.warn(e); setHint("passHint","РћС€РёР±РєР° РёР·РјРµРЅРµРЅРёСЏ", false); }
 };
 
 // ================= CONTACTS & CHANNELS =================
@@ -1282,7 +1416,7 @@ function startListeners(){
   setupChanSubs();
 }
 
-// my contact list (contacts/{uid}/list/{otherUid}) — but we want it queryable simply.
+// my contact list (contacts/{uid}/list/{otherUid}) вЂ” but we want it queryable simply.
 // Use contacts/{uid}/{list} collection.
 function setupMyContacts(){
   db.collection("contacts").doc(me.uid).collection("list")
@@ -1301,13 +1435,13 @@ function setupMyContacts(){
       setConn(true);
     }, err => { console.warn("contacts err", err); setConn(false); });
 }
-// For DEMO: first login adds a couple of placeholder contacts that are actually the same person's other accounts — but that needs those users to exist.
+// For DEMO: first login adds a couple of placeholder contacts that are actually the same person's other accounts вЂ” but that needs those users to exist.
 // Instead: seed two demo users + greeting channels so there's something to look at.
 async function seedDemoIfEmpty(){
   if (seededOnce) return;
   if (!CONTACTS || CONTACTS.length) { seededOnce = true; localStorage.setItem("slav_seeded2","1"); return; }
-  // no contacts yet — only second user will appear via their own add. Keep empty. 
-  const other = await tryCreateDemoUser("ivanushka","Иванушка","🌾");
+  // no contacts yet вЂ” only second user will appear via their own add. Keep empty. 
+  const other = await tryCreateDemoUser("ivanushka","РРІР°РЅСѓС€РєР°","рџЊѕ");
   if (other) { addContactByUid(other.uid, other.username, other.name, other.avatar, "#d9c27a"); }
 }
 let demoCreated = false;
@@ -1393,7 +1527,7 @@ function setupInboxChannelsForIncoming(){
           msgsCache[ch] = map[ch].sort((a,b)=>(a.created_at<b.created_at?-1:a.created_at>b.created_at?1:0));
           // notify on newest incoming message
           const newest = msgsCache[ch][msgsCache[ch].length-1];
-          const senderName = (newest && allUserCache[newest.author]) ? allUserCache[newest.author].name : "Новое сообщение";
+          const senderName = (newest && allUserCache[newest.author]) ? allUserCache[newest.author].name : "РќРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ";
           maybeNotify(ch, newest, senderName);
           // for personal channels, auto-add contact if not known
           if (otherUid && !contactUidToId[otherUid]) {
@@ -1473,10 +1607,10 @@ function refreshChannelsMeta(){
 }
 
 // ---- group creation UI ----
-let groupAvatar = "👥";
+let groupAvatar = "рџ‘Ґ";
 let groupSelected = new Set();
 function openGroupModal(){
-  groupAvatar = "👥";
+  groupAvatar = "рџ‘Ґ";
   groupSelected = new Set();
   document.getElementById("groupName").value = "";
   setHint("groupHint","");
@@ -1494,17 +1628,17 @@ function openGroupModal(){
   listEl.innerHTML = "";
   const personal = CONTACTS.filter(c => c.type !== "group");
   if (!personal.length) {
-    listEl.innerHTML = `<div class="empty-msg" style="text-align:left;padding:10px 4px;">Сначала добавьте контакты.</div>`;
+    listEl.innerHTML = `<div class="empty-msg" style="text-align:left;padding:10px 4px;">РЎРЅР°С‡Р°Р»Р° РґРѕР±Р°РІСЊС‚Рµ РєРѕРЅС‚Р°РєС‚С‹.</div>`;
   }
   personal.forEach(c => {
     const row = document.createElement("div");
     row.className = "member-row";
     row.innerHTML = `<div class="avatar sm" style="background:${c.color}">${c.avatar}</div>
       <div><div>${esc(c.name)}</div><div style="font-size:11px;color:var(--text-dim)">@${esc(c.username||"")}</div></div>
-      <span class="pick">➕</span>`;
+      <span class="pick">вћ•</span>`;
     row.onclick = () => {
-      if (groupSelected.has(c.otherUid)) { groupSelected.delete(c.otherUid); row.classList.remove("selected"); row.querySelector(".pick").textContent="➕"; }
-      else { groupSelected.add(c.otherUid); row.classList.add("selected"); row.querySelector(".pick").textContent="✓"; }
+      if (groupSelected.has(c.otherUid)) { groupSelected.delete(c.otherUid); row.classList.remove("selected"); row.querySelector(".pick").textContent="вћ•"; }
+      else { groupSelected.add(c.otherUid); row.classList.add("selected"); row.querySelector(".pick").textContent="вњ“"; }
     };
     listEl.appendChild(row);
   });
@@ -1514,9 +1648,9 @@ document.getElementById("newGroupBtn").onclick = openGroupModal;
 document.getElementById("groupCancel").onclick = () => document.getElementById("groupOverlay").classList.remove("show");
 document.getElementById("groupCreate").onclick = async () => {
   const name = document.getElementById("groupName").value.trim();
-  if (!name) { setHint("groupHint","Введите название группы", false); return; }
+  if (!name) { setHint("groupHint","Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РіСЂСѓРїРїС‹", false); return; }
   await createGroup(name, groupAvatar, Array.from(groupSelected));
-  setHint("groupHint","Группа создана", true);
+  setHint("groupHint","Р“СЂСѓРїРїР° СЃРѕР·РґР°РЅР°", true);
   setTimeout(()=>document.getElementById("groupOverlay").classList.remove("show"), 700);
 };
 // group info (members) access from header for a group chat
@@ -1531,13 +1665,13 @@ function openGroupInfo(groupId){
   setHint("groupInfoHint","");
   g.members.forEach(uid => {
     const meta = allUserCache[uid] || {};
-    const name = uid === me.uid ? me.name : (meta.name || "…");
-    const avatar = uid === me.uid ? (me.avatar||"🕊️") : (meta.avatar||"🕊️");
+    const name = uid === me.uid ? me.name : (meta.name || "вЂ¦");
+    const avatar = uid === me.uid ? (me.avatar||"рџ•ЉпёЏ") : (meta.avatar||"рџ•ЉпёЏ");
     const av = meta.avatarImg || (uid===me.uid ? me.avatarImg : null);
     const row = document.createElement("div");
     row.className = "member-row";
-    if (av) { row.innerHTML = `<div class="avatar sm" style="background:var(--bg-side);background-image:url('${av}');background-size:cover"> </div><div>${esc(name)}</div>${uid===me.uid?'<div style="font-size:11px;color:var(--text-dim)">Вы</div>':''}`; }
-    else { row.innerHTML = `<div class="avatar sm" style="background:var(--bg-side)">${avatar}</div><div>${esc(name)}</div>${uid===me.uid?'<div style="font-size:11px;color:var(--text-dim)">Вы</div>':''}`; }
+    if (av) { row.innerHTML = `<div class="avatar sm" style="background:var(--bg-side);background-image:url('${av}');background-size:cover"> </div><div>${esc(name)}</div>${uid===me.uid?'<div style="font-size:11px;color:var(--text-dim)">Р’С‹</div>':''}`; }
+    else { row.innerHTML = `<div class="avatar sm" style="background:var(--bg-side)">${avatar}</div><div>${esc(name)}</div>${uid===me.uid?'<div style="font-size:11px;color:var(--text-dim)">Р’С‹</div>':''}`; }
     listEl.appendChild(row);
   });
   document.getElementById("groupInfoOverlay").classList.add("show");
@@ -1546,14 +1680,14 @@ function openGroupInfo(groupId){
 document.getElementById("groupAddUserBtn").onclick = async () => {
   if (!currentGroupInfo) return;
   const u = normUser(document.getElementById("groupAddUser").value);
-  if (!u) { setHint("groupInfoHint","Введите юзернейм", false); return; }
+  if (!u) { setHint("groupInfoHint","Р’РІРµРґРёС‚Рµ СЋР·РµСЂРЅРµР№Рј", false); return; }
   try {
     const found = await findUserByUsername(u);
-    if (!found || found.uid === me.uid) { setHint("groupInfoHint","Пользователь не найден", false); return; }
+    if (!found || found.uid === me.uid) { setHint("groupInfoHint","РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ", false); return; }
     await addToGroup(currentGroupInfo, found.uid);
     document.getElementById("groupAddUser").value = "";
-    setHint("groupInfoHint","Участник добавлен", true);
-  } catch(e){ console.warn(e); setHint("groupInfoHint","Ошибка", false); }
+    setHint("groupInfoHint","РЈС‡Р°СЃС‚РЅРёРє РґРѕР±Р°РІР»РµРЅ", true);
+  } catch(e){ console.warn(e); setHint("groupInfoHint","РћС€РёР±РєР°", false); }
 };
 
 // ================= FIND / ADD BY USERNAME =================
@@ -1575,14 +1709,14 @@ document.getElementById("addCancel").onclick = () => document.getElementById("ad
 document.getElementById("findUser").addEventListener("input", (e) => {
   const u = normUser(e.target.value);
   clearTimeout(findTimer);
-  if (!validUser(u)) { document.getElementById("findHint").textContent = "Введите ник (3–24 символа)"; document.getElementById("findResult").innerHTML=""; return; }
-  document.getElementById("findHint").textContent = "Ищем…";
+  if (!validUser(u)) { document.getElementById("findHint").textContent = "Р’РІРµРґРёС‚Рµ РЅРёРє (3вЂ“24 СЃРёРјРІРѕР»Р°)"; document.getElementById("findResult").innerHTML=""; return; }
+  document.getElementById("findHint").textContent = "РС‰РµРјвЂ¦";
   findTimer = setTimeout(async () => {
     try {
       const u2 = document.getElementById("findUser").value; // reread
       const found = await findUserByUsername(normUser(u2));
-      if (!found) { document.getElementById("findHint").textContent = "Пользователь не найден"; document.getElementById("findResult").innerHTML=""; return; }
-      if (found.uid === me.uid) { document.getElementById("findHint").textContent = "Это вы"; document.getElementById("findResult").innerHTML=""; return; }
+      if (!found) { document.getElementById("findHint").textContent = "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ"; document.getElementById("findResult").innerHTML=""; return; }
+      if (found.uid === me.uid) { document.getElementById("findHint").textContent = "Р­С‚Рѕ РІС‹"; document.getElementById("findResult").innerHTML=""; return; }
       document.getElementById("findHint").textContent = "";
       const div = document.createElement("div");
       div.className = "result-row";
@@ -1593,7 +1727,7 @@ document.getElementById("findUser").addEventListener("input", (e) => {
         document.getElementById("addOverlay").classList.remove("show");
       };
       document.getElementById("findResult").appendChild(div);
-    } catch(e){ console.warn(e); document.getElementById("findHint").textContent = "Ошибка поиска"; }
+    } catch(e){ console.warn(e); document.getElementById("findHint").textContent = "РћС€РёР±РєР° РїРѕРёСЃРєР°"; }
   }, 500);
 });
 
@@ -1602,7 +1736,7 @@ async function deleteContact(id){
   const c = byId(id);
   if (!c) return;
   if (c.type === "group") {
-    if (!confirm(`Выйти из группы «${c.name}»?`)) return;
+    if (!confirm(`Р’С‹Р№С‚Рё РёР· РіСЂСѓРїРїС‹ В«${c.name}В»?`)) return;
     try {
       const g = GROUPS.find(x=>x.groupId===c.groupId);
       if (g) {
@@ -1611,21 +1745,21 @@ async function deleteContact(id){
       }
       if (state.current === id) state.current = null; saveTheme();
       renderAll();
-    } catch(e){ console.warn(e); alert("Не удалось выйти из группы"); }
+    } catch(e){ console.warn(e); alert("РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹Р№С‚Рё РёР· РіСЂСѓРїРїС‹"); }
     return;
   }
   if (c.type === "channel") {
-    if (!confirm(`Отписаться от канала «${c.name}»?`)) return;
-    await unsubscribeChannel(c.chanId).catch(e => alert("Не удалось отписаться"));
+    if (!confirm(`РћС‚РїРёСЃР°С‚СЊСЃСЏ РѕС‚ РєР°РЅР°Р»Р° В«${c.name}В»?`)) return;
+    await unsubscribeChannel(c.chanId).catch(e => alert("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РїРёСЃР°С‚СЊСЃСЏ"));
     return;
   }
-  if (!confirm(`Удалить контакт «${c.name}» (@${c.username})?`)) return;
+  if (!confirm(`РЈРґР°Р»РёС‚СЊ РєРѕРЅС‚Р°РєС‚ В«${c.name}В» (@${c.username})?`)) return;
   try {
     await db.collection("contacts").doc(me.uid).collection("list").doc(id).delete();
     delete contactUidToId[c.otherUid];
     if (state.current === id) state.current = null; saveTheme();
     renderAll();
-  } catch(e){ console.warn(e); alert("Не удалось удалить контакт"); }
+  } catch(e){ console.warn(e); alert("РќРµ СѓРґР°Р»РѕСЃСЊ СѓРґР°Р»РёС‚СЊ РєРѕРЅС‚Р°РєС‚"); }
 }
 el.delContactBtn.onclick = () => { if (state.current) deleteContact(state.current); };
 el.groupInfoBtn.onclick = () => { const c = byId(state.current); if (c && c.type === "group") openGroupInfo(c.groupId); };
@@ -1643,15 +1777,33 @@ function openMiniProfile(c){
     avatarEl.textContent = "";
   } else {
     avatarEl.style.backgroundImage = "";
-    avatarEl.textContent = c.avatar || "🕊️";
+    avatarEl.textContent = c.avatar || "рџ•ЉпёЏ";
   }
   const meta = allUserCache[c.otherUid] || {};
-  document.getElementById("mpName").textContent = c.name || meta.name || "…";
-  document.getElementById("mpHandle").textContent = "@" + (c.username || meta.username || "…");
-  document.getElementById("mpBio").textContent = meta.bio || "Описания пока нет";
+  document.getElementById("mpName").textContent = c.name || meta.name || "вЂ¦";
+  document.getElementById("mpHandle").textContent = "@" + (c.username || meta.username || "вЂ¦");
+  document.getElementById("mpBio").textContent = meta.bio || "РћРїРёСЃР°РЅРёСЏ РїРѕРєР° РЅРµС‚";
   const st = document.getElementById("mpStatus");
-  if (isOnline(c.otherUid)) { st.textContent = "онлайн"; st.style.color = "#34c759"; }
-  else { st.textContent = "оффлайн"; st.style.color = ""; }
+  if (isOnline(c.otherUid)) { st.textContent = "РѕРЅР»Р°Р№РЅ"; st.style.color = "#34c759"; }
+  else { st.textContent = "РѕС„С„Р»Р°Р№РЅ"; st.style.color = ""; }
+  // what the peer has sent so far (counts over the current chat history)
+  const mpStats = document.getElementById("mpStats");
+  mpStats.innerHTML = "";
+  const ch = channels[c.otherUid];
+  const msgs = ch ? (msgsCache[ch] || []) : [];
+  let nAudio = 0, nVideo = 0, nMedia = 0, nGif = 0;
+  msgs.forEach(m => {
+    if (m.author !== c.otherUid) return;
+    if (m.voice) nAudio++;
+    else if (m.video) nVideo++;
+    else if (m.media) { if (String(m.mediaType || "") === "gif" || String(m.mediaType || "").startsWith("text/html")) nGif++; else nMedia++; }
+  });
+  const chips = [];
+  if (nAudio) chips.push(`<span style="background:var(--hover);border-radius:12px;padding:4px 10px;font-size:12px;">рџЋ¤ РђСѓРґРёРѕ В· ${nAudio}</span>`);
+  if (nVideo) chips.push(`<span style="background:var(--hover);border-radius:12px;padding:4px 10px;font-size:12px;">в­• РљСЂСѓР¶РєРё В· ${nVideo}</span>`);
+  if (nMedia) chips.push(`<span style="background:var(--hover);border-radius:12px;padding:4px 10px;font-size:12px;">рџ–ј РњРµРґРёР° В· ${nMedia}</span>`);
+  if (nGif) chips.push(`<span style="background:var(--hover);border-radius:12px;padding:4px 10px;font-size:12px;">рџЋћ РЎС‚РёРєРµСЂС‹ В· ${nGif}</span>`);
+  if (chips.length) mpStats.innerHTML = '<div style="color:var(--text);font-size:13px;font-weight:600;flex-basis:100%;">РџСЂРёСЃР»Р°Р»:</div>' + chips.join("");
   document.getElementById("miniProfOverlay").classList.add("show");
 }
 document.getElementById("mpClose").onclick = () => document.getElementById("miniProfOverlay").classList.remove("show");
@@ -1672,19 +1824,19 @@ function updateMicBtn(){
   if (!b) return;
   b.classList.toggle("rec", micState === "recording");
   setIcon(b, micState === "recording" ? "micSlash" : (micState === "ready" ? "checkmark" : "mic"));
-  b.title = micState === "recording" ? "Остановить запись" : (micState === "ready" ? "Отправить голосовое (Enter)" : "Записать голосовое");
+  b.title = micState === "recording" ? "РћСЃС‚Р°РЅРѕРІРёС‚СЊ Р·Р°РїРёСЃСЊ" : (micState === "ready" ? "РћС‚РїСЂР°РІРёС‚СЊ РіРѕР»РѕСЃРѕРІРѕРµ (Enter)" : "Р—Р°РїРёСЃР°С‚СЊ РіРѕР»РѕСЃРѕРІРѕРµ");
 }
 async function startRecording(){
   try {
     mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  } catch(e){ console.warn(e); alert("Нет доступа к микрофону"); return; }
+  } catch(e){ console.warn(e); alert("РќРµС‚ РґРѕСЃС‚СѓРїР° Рє РјРёРєСЂРѕС„РѕРЅСѓ"); return; }
   const mime = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : null;
   mediaRec = new MediaRecorder(mediaStream, mime ? { mimeType: mime } : undefined);
   recChunks = [];
   mediaRec.ondataavailable = (e) => { if (e.data && e.data.size) recChunks.push(e.data); };
   mediaRec.onstop = () => {
     const blob = new Blob(recChunks, { type: mime || "audio/webm" });
-    if (blob.size > MAX_VOICE_BYTES) { alert("Голосовое слишком длинное, запишите короче"); micState = "idle"; updateMicBtn(); mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; return; }
+    if (blob.size > MAX_VOICE_BYTES) { alert("Р“РѕР»РѕСЃРѕРІРѕРµ СЃР»РёС€РєРѕРј РґР»РёРЅРЅРѕРµ, Р·Р°РїРёС€РёС‚Рµ РєРѕСЂРѕС‡Рµ"); micState = "idle"; updateMicBtn(); mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; return; }
     const reader = new FileReader();
     reader.onload = () => {
       pendingVoice = { data: reader.result, duration: Math.max(1, Math.round((Date.now()-recStart)/1000)) };
@@ -1732,19 +1884,19 @@ function updateCircleBtn(){
   if (!b) return;
   b.classList.toggle("rec", vidState === "recording");
   setIcon(b, vidState === "recording" ? "xmark" : (vidState === "ready" ? "checkmark" : "video"));
-  b.title = vidState === "recording" ? "Остановить кружок" : (vidState === "ready" ? "Отправить кружок (Enter)" : "Видеосообщение");
+  b.title = vidState === "recording" ? "РћСЃС‚Р°РЅРѕРІРёС‚СЊ РєСЂСѓР¶РѕРє" : (vidState === "ready" ? "РћС‚РїСЂР°РІРёС‚СЊ РєСЂСѓР¶РѕРє (Enter)" : "Р’РёРґРµРѕСЃРѕРѕР±С‰РµРЅРёРµ");
 }
 async function circleStart(){
   try {
     vidStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 480 }, height: { ideal: 480 } }, audio: true });
-  } catch(e){ console.warn(e); alert("Нет доступа к камере"); return; }
+  } catch(e){ console.warn(e); alert("РќРµС‚ РґРѕСЃС‚СѓРїР° Рє РєР°РјРµСЂРµ"); return; }
   const mime = MediaRecorder.isTypeSupported("video/webm") ? "video/webm" : "video/mp4";
   vidRec = new MediaRecorder(vidStream, { mimeType: mime });
   vidChunks = [];
   vidRec.ondataavailable = (e) => { if (e.data && e.data.size) vidChunks.push(e.data); };
   vidRec.onstop = () => {
     const blob = new Blob(vidChunks, { type: mime });
-    if (blob.size > MAX_VID_BYTES) { alert("Кружок слишком большой, запишите короче"); vidState = "idle"; updateCircleBtn(); vidStream.getTracks().forEach(t => t.stop()); vidStream = null; return; }
+    if (blob.size > MAX_VID_BYTES) { alert("РљСЂСѓР¶РѕРє СЃР»РёС€РєРѕРј Р±РѕР»СЊС€РѕР№, Р·Р°РїРёС€РёС‚Рµ РєРѕСЂРѕС‡Рµ"); vidState = "idle"; updateCircleBtn(); vidStream.getTracks().forEach(t => t.stop()); vidStream = null; return; }
     const reader = new FileReader();
     reader.onload = () => {
       pendingVideo = { data: reader.result, duration: Math.max(1, Math.round((Date.now()-vidStart)/1000)) };
@@ -1842,8 +1994,8 @@ function renderFolders(){
   });
   const archChip = document.createElement("button");
   archChip.className = "folder-chip" + (activeFolder === "__arch" ? " active" : "");
-  archChip.innerHTML = `🗄️ Архив${archUnread ? `<span class="arch-count">${archUnread}</span>` : ""}`;
-  archChip.title = "Архивированные чаты";
+  archChip.innerHTML = `рџ—„пёЏ РђСЂС…РёРІ${archUnread ? `<span class="arch-count">${archUnread}</span>` : ""}`;
+  archChip.title = "РђСЂС…РёРІРёСЂРѕРІР°РЅРЅС‹Рµ С‡Р°С‚С‹";
   archChip.onclick = () => {
     activeFolder = activeFolder === "__arch" ? null : "__arch";
     renderFolders();
@@ -1851,7 +2003,7 @@ function renderFolders(){
   };
   bar.appendChild(archChip);
   if (FOLDERS.length === 0 && !archUnread) {
-    bar.innerHTML += `<span class="folders-empty">Папок нет</span>`;
+    bar.innerHTML += `<span class="folders-empty">РџР°РїРѕРє РЅРµС‚</span>`;
   }
   FOLDERS.forEach(f => {
     const chip = document.createElement("button");
@@ -1865,9 +2017,9 @@ function renderFolders(){
     };
     const x = document.createElement("span");
     x.className = "x";
-    x.textContent = "✕";
-    x.title = "Удалить папку";
-    x.onclick = (ev) => { ev.stopPropagation(); if (confirm(`Удалить папку «${f.name}»?`)) { FOLDERS = FOLDERS.filter(y=>y.name!==f.name); if (activeFolder===f.name) activeFolder=null; saveFolders(); renderFolders(); renderAll(); } };
+    x.textContent = "вњ•";
+    x.title = "РЈРґР°Р»РёС‚СЊ РїР°РїРєСѓ";
+    x.onclick = (ev) => { ev.stopPropagation(); if (confirm(`РЈРґР°Р»РёС‚СЊ РїР°РїРєСѓ В«${f.name}В»?`)) { FOLDERS = FOLDERS.filter(y=>y.name!==f.name); if (activeFolder===f.name) activeFolder=null; saveFolders(); renderFolders(); renderAll(); } };
     chip.appendChild(x);
     bar.appendChild(chip);
   });
@@ -1877,12 +2029,12 @@ function folderContains(f, c){
 }
 document.getElementById("folderCreate").onclick = () => {
   const name = document.getElementById("folderName").value.trim();
-  if (!name) { setHint("folderHint","Введите название папки", false); return; }
-  if (FOLDERS.some(f => f.name.toLowerCase() === name.toLowerCase())) { setHint("folderHint","Папка уже есть", false); return; }
+  if (!name) { setHint("folderHint","Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїР°РїРєРё", false); return; }
+  if (FOLDERS.some(f => f.name.toLowerCase() === name.toLowerCase())) { setHint("folderHint","РџР°РїРєР° СѓР¶Рµ РµСЃС‚СЊ", false); return; }
   FOLDERS.push({ name, chats: [], expanded: true });
   saveFolders();
   document.getElementById("folderName").value = "";
-  setHint("folderHint","Папка создана", true);
+  setHint("folderHint","РџР°РїРєР° СЃРѕР·РґР°РЅР°", true);
   renderFolders();
   renderAll();
   setTimeout(()=>document.getElementById("folderOverlay").classList.remove("show"), 700);
@@ -1900,8 +2052,8 @@ function applyFolderFilter(list){
 // channel message key is "c_<chanId>"
 function chanMsgKey(chanId){ return "c_" + chanId; }
 function chanContactObj(ch){
-  return { id: "c_" + ch.chanId, chanId: ch.chanId, name: ch.name, avatar: ch.avatar || "📢", avatarImg: null,
-           color: ch.color || SELF_COLORS[0], type: "channel", ownerUid: ch.ownerUid, ownerName: ch.ownerName || "Автор", desc: ch.desc || "",
+  return { id: "c_" + ch.chanId, chanId: ch.chanId, name: ch.name, avatar: ch.avatar || "рџ“ў", avatarImg: null,
+           color: ch.color || SELF_COLORS[0], type: "channel", ownerUid: ch.ownerUid, ownerName: ch.ownerName || "РђРІС‚РѕСЂ", desc: ch.desc || "",
            memberNames: {} };
 }
 function isMyChannel(chanId){
@@ -1918,15 +2070,15 @@ function setChanContacts(){
 }
 
 // ==== channel UI ====
-let chanAvatar = "📢";
+let chanAvatar = "рџ“ў";
 function openChanModal(){
-  chanAvatar = "📢";
+  chanAvatar = "рџ“ў";
   document.getElementById("chanName").value = "";
   document.getElementById("chanDesc").value = "";
   setHint("chanHint","");
   const ga = document.getElementById("chanAvatarGrid");
   ga.innerHTML = "";
-  ["📢","📰","📻","✳️","🔊","🎙️","💬","🗞️"].forEach(e => {
+  ["рџ“ў","рџ“°","рџ“»","вњіпёЏ","рџ”Љ","рџЋ™пёЏ","рџ’¬","рџ—ћпёЏ"].forEach(e => {
     const b = document.createElement("button"); b.textContent = e;
     if (e === chanAvatar) b.className = "sel";
     b.onclick = () => { ga.querySelectorAll("button").forEach(x=>x.classList.remove("sel")); b.className="sel"; chanAvatar=e; };
@@ -1948,7 +2100,7 @@ document.getElementById("chanJoinLocalBtn").onclick = () => {
 };
 document.getElementById("chanCreate").onclick = async () => {
   const name = document.getElementById("chanName").value.trim();
-  if (!name) { setHint("chanHint","Введите название канала", false); return; }
+  if (!name) { setHint("chanHint","Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РєР°РЅР°Р»Р°", false); return; }
   const desc = document.getElementById("chanDesc").value.trim();
   try {
     const chanId = uuid();
@@ -1958,13 +2110,13 @@ document.getElementById("chanCreate").onclick = async () => {
     // owner auto-subscribes
     await db.collection("chan_subs").doc(me.uid).collection("channels").doc(chanId).set({ chanId, at: serverTS() }).catch(e=>console.warn(e));
     // seed a welcome post
-    await db.collection("msgs").add({ channel: chanMsgKey(chanId), author: me.uid, text: "⭐ Канал создан. Здесь будут новые посты!", created_at: serverTS() }).catch(e=>console.warn(e));
+    await db.collection("msgs").add({ channel: chanMsgKey(chanId), author: me.uid, text: "в­ђ РљР°РЅР°Р» СЃРѕР·РґР°РЅ. Р—РґРµСЃСЊ Р±СѓРґСѓС‚ РЅРѕРІС‹Рµ РїРѕСЃС‚С‹!", created_at: serverTS() }).catch(e=>console.warn(e));
     myChannels.add(chanId);
     loadChannelByDoc(chanId);
     renderAll();
-    setHint("chanHint","Канал создан", true);
+    setHint("chanHint","РљР°РЅР°Р» СЃРѕР·РґР°РЅ", true);
     setTimeout(()=>document.getElementById("chanOverlay").classList.remove("show"), 700);
-  } catch(e){ console.warn(e); setHint("chanHint","Ошибка создания", false); }
+  } catch(e){ console.warn(e); setHint("chanHint","РћС€РёР±РєР° СЃРѕР·РґР°РЅРёСЏ", false); }
 };
 // join channel: search user, list their channels
 document.getElementById("chanJoinCancel").onclick = () => document.getElementById("chanJoinOverlay").classList.remove("show");
@@ -1986,14 +2138,14 @@ document.getElementById("chanSearchName").addEventListener("input", (e) => {
         if ((ch.name || "").toLowerCase().includes(q)) found.push({ id: d.id, ...ch });
       });
       const box = document.getElementById("chanNameSearchResult");
-      if (!found.length) { box.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">Каналы не найдены.</div>`; return; }
+      if (!found.length) { box.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">РљР°РЅР°Р»С‹ РЅРµ РЅР°Р№РґРµРЅС‹.</div>`; return; }
       found.slice(0, 15).forEach(ch => {
         const subbed = isMyChannel(ch.id);
         const row = document.createElement("div");
         row.className = "result-row";
-        row.innerHTML = `<div class="avatar sm" style="background:${ch.color||SELF_COLORS[0]}">${ch.avatar||"📢"}</div>
+        row.innerHTML = `<div class="avatar sm" style="background:${ch.color||SELF_COLORS[0]}">${ch.avatar||"рџ“ў"}</div>
           <div><div>${esc(ch.name)}</div><div style="font-size:11px;color:var(--text-dim)">${esc(ch.desc||"")}</div></div>
-          <span style="margin-left:auto;font-size:12px">${subbed ? "✓" : "＋"}</span>`;
+          <span style="margin-left:auto;font-size:12px">${subbed ? "вњ“" : "пј‹"}</span>`;
         row.onclick = async () => {
           if (subbed) await unsubscribeChannel(ch.id);
           else await subscribeChannel(ch.id);
@@ -2001,7 +2153,7 @@ document.getElementById("chanSearchName").addEventListener("input", (e) => {
         };
         box.appendChild(row);
       });
-    } catch(err){ console.warn(err); document.getElementById("chanNameSearchHint").textContent = "Ошибка поиска"; }
+    } catch(err){ console.warn(err); document.getElementById("chanNameSearchHint").textContent = "РћС€РёР±РєР° РїРѕРёСЃРєР°"; }
   }, 400);
 });
 let chanFindTimer=null;
@@ -2009,17 +2161,17 @@ async function debounceFindChannels(e){
   const u = normUser(e.target.value);
   clearTimeout(chanFindTimer);
   document.getElementById("chanSearchResult").innerHTML = "";
-  if (!validUser(u)) { document.getElementById("chanSearchHint").textContent = "Введите ник (3–24)"; return; }
-  document.getElementById("chanSearchHint").textContent = "Ищем…";
+  if (!validUser(u)) { document.getElementById("chanSearchHint").textContent = "Р’РІРµРґРёС‚Рµ РЅРёРє (3вЂ“24)"; return; }
+  document.getElementById("chanSearchHint").textContent = "РС‰РµРјвЂ¦";
   chanFindTimer = setTimeout(async () => {
     try {
       const found = await findUserByUsername(u);
-      if (!found) { document.getElementById("chanSearchHint").textContent = "Пользователь не найден"; return; }
+      if (!found) { document.getElementById("chanSearchHint").textContent = "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ"; return; }
       document.getElementById("chanSearchHint").textContent = "";
       const q = await db.collection("channels").where("ownerUid","==",found.uid).limit(15).get();
       const box = document.getElementById("chanSearchResult");
       box.innerHTML = "";
-      if (q.empty) { box.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">У пользователя нет каналов.</div>`; return; }
+      if (q.empty) { box.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">РЈ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅРµС‚ РєР°РЅР°Р»РѕРІ.</div>`; return; }
       q.forEach(d => {
         const ch = d.data();
         const row = document.createElement("div");
@@ -2027,7 +2179,7 @@ async function debounceFindChannels(e){
         const subbed = isMyChannel(d.id);
         row.innerHTML = `<div class="avatar sm" style="background:${ch.color||SELF_COLORS[0]}">${ch.avatar}</div>
           <div><div>${esc(ch.name)}</div><div style="font-size:11px;color:var(--text-dim)">${esc(ch.desc||"")}</div></div>
-          <span style="margin-left:auto;font-size:12px">${subbed ? "✓" : "＋"}</span>`;
+          <span style="margin-left:auto;font-size:12px">${subbed ? "вњ“" : "пј‹"}</span>`;
         row.onclick = async () => {
           if (subbed) { await unsubscribeChannel(d.id); }
           else { await subscribeChannel(d.id); }
@@ -2035,7 +2187,7 @@ async function debounceFindChannels(e){
         };
         box.appendChild(row);
       });
-    } catch(err){ console.warn(err); document.getElementById("chanSearchHint").textContent = "Ошибка"; }
+    } catch(err){ console.warn(err); document.getElementById("chanSearchHint").textContent = "РћС€РёР±РєР°"; }
   }, 500);
 }
 async function subscribeChannel(chanId){
@@ -2102,12 +2254,12 @@ function renderList(filter=""){
   list = applyFolderFilter(list);
   if (activeFolder) {
     const f = FOLDERS.find(x=>x.name===activeFolder);
-    const hint = f ? `<div class="folders-empty" style="padding:8px 16px;">В папке «${esc(f.name)}»: ${list.length} чатов</div>` : "";
+    const hint = f ? `<div class="folders-empty" style="padding:8px 16px;">Р’ РїР°РїРєРµ В«${esc(f.name)}В»: ${list.length} С‡Р°С‚РѕРІ</div>` : "";
     if (hint) el.chatList.innerHTML = hint;
   }
   if (list.length === 0) {
     if (activeFolder) return;
-    el.chatList.innerHTML = `<div class="empty-msg">Контактов нет.<br>Нажмите ＋, чтобы найти друзей по юзернейму.</div>`;
+    el.chatList.innerHTML = `<div class="empty-msg">РљРѕРЅС‚Р°РєС‚РѕРІ РЅРµС‚.<br>РќР°Р¶РјРёС‚Рµ пј‹, С‡С‚РѕР±С‹ РЅР°Р№С‚Рё РґСЂСѓР·РµР№ РїРѕ СЋР·РµСЂРЅРµР№РјСѓ.</div>`;
     return;
   }
   list.forEach(c => {
@@ -2125,11 +2277,11 @@ function renderList(filter=""){
       ? `<div class="avatar sm" style="background:${c.color};background-image:url('${c.avatarImg}');background-size:cover;background-position:center">`+
         `<div style="opacity:0">x</div>${statusDot}</div>`
       : `<div class="avatar sm" style="background:${c.color}">${c.avatar}${statusDot}</div>`;
-    let previewLabel = last ? (last.voice ? "🎤 Голосовое сообщение" : last.text) : "Нет сообщений";
-    if (!last && c.type==="group") previewLabel = "Группа · "+(c.members||[]).length+" участников";
-    else if (!last && c.type==="channel") previewLabel = (c.ownerName||"Автор") + " · канал";
-    const delLabel = c.type==="group" ? "Покинуть" : "Удалить";
-    const handlePart = c.type === "group" ? "" : (c.type === "channel" ? "📢" : "@"+esc(c.username));
+    let previewLabel = last ? (last.voice ? "рџЋ¤ Р“РѕР»РѕСЃРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ" : last.text) : "РќРµС‚ СЃРѕРѕР±С‰РµРЅРёР№";
+    if (!last && c.type==="group") previewLabel = "Р“СЂСѓРїРїР° В· "+(c.members||[]).length+" СѓС‡Р°СЃС‚РЅРёРєРѕРІ";
+    else if (!last && c.type==="channel") previewLabel = (c.ownerName||"РђРІС‚РѕСЂ") + " В· РєР°РЅР°Р»";
+    const delLabel = c.type==="group" ? "РџРѕРєРёРЅСѓС‚СЊ" : "РЈРґР°Р»РёС‚СЊ";
+    const handlePart = c.type === "group" ? "" : (c.type === "channel" ? "рџ“ў" : "@"+esc(c.username));
     div.innerHTML =
       avInner +
       `<div class="info">` +
@@ -2139,8 +2291,8 @@ function renderList(filter=""){
       (unread ? `<div class="unread">${unread}</div>` : "") +
       `<div style="display:flex;flex-direction:column;gap:2px">` +
         `<button class="icon-btn danger del hidden" data-id="${c.id}" title="${delLabel}"></button>` +
-        `<button class="icon-btn folder-add" data-id="${c.id}" title="В папку"></button>` +
-        `<button class="icon-btn arch-add" data-id="${c.id}" title="${archivedSet.has(c.id) ? "Разархивировать" : "В архив"}"></button>` +
+        `<button class="icon-btn folder-add" data-id="${c.id}" title="Р’ РїР°РїРєСѓ"></button>` +
+        `<button class="icon-btn arch-add" data-id="${c.id}" title="${archivedSet.has(c.id) ? "Р Р°Р·Р°СЂС…РёРІРёСЂРѕРІР°С‚СЊ" : "Р’ Р°СЂС…РёРІ"}"></button>` +
       `</div>`;
     div.onclick = () => openChat(c.id);
     const delBtn = div.querySelector(".del");
@@ -2165,13 +2317,13 @@ function openFolderAssign(cid){
   listEl.innerHTML = "";
   const own = FOLDERS.filter(f => folderContains(f, c)).map(f=>f.name);
   if (!FOLDERS.length) {
-    listEl.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">Сначала создайте папку через «＋ папка».</div>`;
+    listEl.innerHTML = `<div class="empty-msg" style="text-align:left;padding:8px 2px;">РЎРЅР°С‡Р°Р»Р° СЃРѕР·РґР°Р№С‚Рµ РїР°РїРєСѓ С‡РµСЂРµР· В«пј‹ РїР°РїРєР°В».</div>`;
   }
   FOLDERS.forEach(f => {
     const row = document.createElement("div");
     const inF = folderContains(f, c);
     row.className = "member-row" + (inF ? " selected" : "");
-    row.innerHTML = `<span style="flex:1">${esc(f.name)}</span><span class="pick">${inF?"✓":"＋"}</span>`;
+    row.innerHTML = `<span style="flex:1">${esc(f.name)}</span><span class="pick">${inF?"вњ“":"пј‹"}</span>`;
     row.onclick = () => {
       if (inF) f.chats = f.chats.filter(x=>x!==cid);
       else f.chats.push(cid);
@@ -2183,7 +2335,7 @@ function openFolderAssign(cid){
   });
   const newRow = document.createElement("div");
   newRow.className = "member-row";
-  newRow.innerHTML = `<span style="flex:1;color:var(--text-dim)">＋ Новая папка</span>`;
+  newRow.innerHTML = `<span style="flex:1;color:var(--text-dim)">пј‹ РќРѕРІР°СЏ РїР°РїРєР°</span>`;
   newRow.onclick = () => { closeFolderAssign(); document.getElementById("folderOverlay").classList.add("show"); };
   listEl.appendChild(newRow);
   document.getElementById("folderAssignOverlay").classList.add("show");
@@ -2217,11 +2369,11 @@ function renderMessages(){
   el.composer.style.display="flex"; el.chatHeader.style.display="flex";
   applyWallpaper();
   el.hdrName.textContent = c.name;
-  el.hdrHandle.textContent = c.type === "group" ? "" : (c.type === "channel" ? "📢" : ("@" + c.username));
+  el.hdrHandle.textContent = c.type === "group" ? "" : (c.type === "channel" ? "рџ“ў" : ("@" + c.username));
   el.groupInfoBtn.style.display = c.type === "group" ? "grid" : "none";
-  if (c.type === "group") el.hdrStatus.textContent = "Группа · " + (c.members||[]).length + " участников";
-  else if (c.type === "channel") el.hdrStatus.textContent = (c.ownerName || "Автор") + " · " + (c.desc || "канал");
-  else if (c.otherUid) { el.hdrStatus.textContent = isOnline(c.otherUid) ? "онлайн" : "оффлайн"; el.hdrStatus.classList.toggle("online", isOnline(c.otherUid)); }
+  if (c.type === "group") el.hdrStatus.textContent = "Р“СЂСѓРїРїР° В· " + (c.members||[]).length + " СѓС‡Р°СЃС‚РЅРёРєРѕРІ";
+  else if (c.type === "channel") el.hdrStatus.textContent = (c.ownerName || "РђРІС‚РѕСЂ") + " В· " + (c.desc || "РєР°РЅР°Р»");
+  else if (c.otherUid) { el.hdrStatus.textContent = isOnline(c.otherUid) ? "РѕРЅР»Р°Р№РЅ" : "РѕС„С„Р»Р°Р№РЅ"; el.hdrStatus.classList.toggle("online", isOnline(c.otherUid)); }
   else el.hdrStatus.textContent = "";
   // in a channel only the owner can write
   const isOwnerChan = c.type === "channel" && c.ownerUid === me.uid;
@@ -2247,9 +2399,9 @@ function renderMessages(){
   const msgs = (ch && msgsCache[ch]) || [];
   el.messages.innerHTML = `<div class="day-sep">${fmtToday()}</div>`;
   if (msgs.length === 0) {
-    el.messages.innerHTML += `<div class="empty-msg">Сообщений пока нет. Напишите первым!</div>`;
+    el.messages.innerHTML += `<div class="empty-msg">РЎРѕРѕР±С‰РµРЅРёР№ РїРѕРєР° РЅРµС‚. РќР°РїРёС€РёС‚Рµ РїРµСЂРІС‹Рј!</div>`;
   }
-  const authorOf = (uid) => (uid === me.uid) ? me.name : (c.memberNames ? (c.memberNames[uid] || "б") : "б");
+  const authorOf = (uid) => (uid === me.uid) ? me.name : (c.memberNames ? (c.memberNames[uid] || "Р±") : "Р±");
   msgs.forEach(m => {
     const out = m.author === me.uid;
     const d = document.createElement("div");
@@ -2259,22 +2411,22 @@ function renderMessages(){
     const showAuthorIn = (c.type === "group" && !out) || (c.type === "channel" && !out);
     const authorLabel = showAuthorIn ? (allUserCache[m.author] ? allUserCache[m.author].name : authorOf(m.author)) : "";
     const bubbleBody = m.voice
-      ? `<div class="voice-bubble"><audio controls src="${m.voice}"></audio><span>🎤 ${m.duration||0}с</span></div>`
+      ? `<div class="voice-bubble"><audio controls src="${m.voice}"></audio><span>рџЋ¤ ${m.duration||0}СЃ</span></div>`
       : (m.video
         ? `<div class="circle-video"><video class="round" src="${m.video}" muted loop playsinline preload="metadata"></video></div>` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
         : (m.media
-          ? `<img class="media-img" src="${m.media}" alt="медиа">` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
+          ? `<img class="media-img" src="${m.media}" alt="РјРµРґРёР°">` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
           : `<div class="text">${esc(m.text)}</div>`));
     const sentT = msgTimeMs(m);
     const chKey = c.type === "group" ? ("g_" + c.groupId) : (c.type === "channel" ? chanMsgKey(c.chanId) : channels[c.otherUid]);
     let statusHtml = "";
     if (out && c.type !== "channel") {
-      // own message: show delivered(✓) / read(✓✓) based on peer's read receipt
+      // own message: show delivered(вњ“) / read(вњ“вњ“) based on peer's read receipt
       const readAt = c.type === "group" ? 0 : peerReadAt(c.otherUid, chKey);
       const isRead = readAt > 0 && sentT <= readAt;
-      statusHtml = `<span class="check ${isRead ? "read" : ""}">${isRead ? "✓✓" : "✓"}</span>`;
+      statusHtml = `<span class="check ${isRead ? "read" : ""}">${isRead ? "вњ“вњ“" : "вњ“"}</span>`;
     } else if (out) {
-      statusHtml = `<span class="check">✓✓</span>`;
+      statusHtml = `<span class="check">вњ“вњ“</span>`;
     }
     d.innerHTML =
       (showAuthorIn ? `<div class="author">${esc(authorLabel)}</div>` : "") +
@@ -2283,7 +2435,7 @@ function renderMessages(){
       `</div>`;
     if (out && m.author === me.uid) {
       d.addEventListener("contextmenu", (e) => { e.preventDefault(); openMsgMenu(e, m); });
-      d.addEventListener("dblclick", () => { if (confirm("Удалить это сообщение?")) deleteMessage(m.id); });
+      d.addEventListener("dblclick", () => { if (confirm("РЈРґР°Р»РёС‚СЊ СЌС‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ?")) deleteMessage(m.id); });
     }
     el.messages.appendChild(d);
   });
@@ -2308,7 +2460,7 @@ async function deleteMessage(msgId){
       msgsCache[ch] = msgsCache[ch].filter(m => m.id !== msgId);
     });
     renderAll();
-  } catch(e){ console.warn("delete msg err", e); alert("Не удалось удалить сообщение"); }
+  } catch(e){ console.warn("delete msg err", e); alert("РќРµ СѓРґР°Р»РѕСЃСЊ СѓРґР°Р»РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ"); }
 }
 
 // custom context menu
@@ -2317,10 +2469,10 @@ function openMsgMenu(e, m){
   closeCtxMenu();
   ctxMenu = document.createElement("div");
   ctxMenu.className = "ctx-menu";
-  ctxMenu.innerHTML = `<div class="ctx-item danger">🗑 Удалить сообщение</div>`;
+  ctxMenu.innerHTML = `<div class="ctx-item danger">рџ—‘ РЈРґР°Р»РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ</div>`;
   ctxMenu.style.left = Math.min(e.clientX, window.innerWidth - 180) + "px";
   ctxMenu.style.top = Math.min(e.clientY, window.innerHeight - 80) + "px";
-  ctxMenu.firstChild.onclick = () => { const id = m.id; closeCtxMenu(); if (confirm("Удалить это сообщение?")) deleteMessage(id); };
+  ctxMenu.firstChild.onclick = () => { const id = m.id; closeCtxMenu(); if (confirm("РЈРґР°Р»РёС‚СЊ СЌС‚Рѕ СЃРѕРѕР±С‰РµРЅРёРµ?")) deleteMessage(id); };
   document.body.appendChild(ctxMenu);
   document.addEventListener("click", closeCtxMenu, { once: true });
 }
@@ -2387,15 +2539,15 @@ function applyTheme(){
   if (grid && !grid.dataset.built) fillAccGrid();
 }
 const ACC_COLORS = [
-  { key:"blue",   color:"#007aff", name:"Синий" },
-  { key:"green",  color:"#34c759", name:"Зелёный" },
-  { key:"red",    color:"#ff3b30", name:"Красный" },
-  { key:"purple", color:"#af52de", name:"Фиолетовый" },
-  { key:"pink",   color:"#ff2d55", name:"Розовый" },
-  { key:"orange", color:"#ff9500", name:"Оранжевый" },
-  { key:"teal",   color:"#30b0c7", name:"Бирюзовый" },
-  { key:"indigo", color:"#5856d6", name:"Индиго" },
-  { key:"grey",   color:"#8e8e93", name:"Серый" },
+  { key:"blue",   color:"#007aff", name:"РЎРёРЅРёР№" },
+  { key:"green",  color:"#34c759", name:"Р—РµР»С‘РЅС‹Р№" },
+  { key:"red",    color:"#ff3b30", name:"РљСЂР°СЃРЅС‹Р№" },
+  { key:"purple", color:"#af52de", name:"Р¤РёРѕР»РµС‚РѕРІС‹Р№" },
+  { key:"pink",   color:"#ff2d55", name:"Р РѕР·РѕРІС‹Р№" },
+  { key:"orange", color:"#ff9500", name:"РћСЂР°РЅР¶РµРІС‹Р№" },
+  { key:"teal",   color:"#30b0c7", name:"Р‘РёСЂСЋР·РѕРІС‹Р№" },
+  { key:"indigo", color:"#5856d6", name:"РРЅРґРёРіРѕ" },
+  { key:"grey",   color:"#8e8e93", name:"РЎРµСЂС‹Р№" },
 ];
 function fillAccGrid(){
   const grid = document.getElementById("accGrid");
@@ -2434,7 +2586,7 @@ el.photoInput.addEventListener("change", () => {
   const file = el.photoInput.files[0];
   el.photoInput.value = "";
   if (!file) return;
-  if (file.size > MAX_PHOTO_BYTES) { alert("Фото слишком большое (макс ~900 КБ). Выберите меньшее."); return; }
+  if (file.size > MAX_PHOTO_BYTES) { alert("Р¤РѕС‚Рѕ СЃР»РёС€РєРѕРј Р±РѕР»СЊС€РѕРµ (РјР°РєСЃ ~900 РљР‘). Р’С‹Р±РµСЂРёС‚Рµ РјРµРЅСЊС€РµРµ."); return; }
   const reader = new FileReader();
   reader.onload = () => { pendingMedia = { data: reader.result, type: "image" }; sendMessage(); };
   reader.readAsDataURL(file);
@@ -2448,24 +2600,24 @@ function stickerSVG(emoji, animCss){
     '<text x="50" y="62" font-size="60" text-anchor="middle" dominant-baseline="middle">' + emoji + '</text></svg>');
 }
 const GIF_STICKERS = [
-  { label:"👍", url: stickerSVG("👍", "@keyframes a{50%{transform:rotate(25deg)}}#s{animation:a .5s infinite alternate}") },
-  { label:"❤️", url: stickerSVG("❤️", "@keyframes a{50%{transform:scale(1.3)}}#s{animation:a .6s infinite alternate}") },
-  { label:"😂", url: stickerSVG("😂", "@keyframes a{50%{transform:translateY(-6px) rotate(-8deg)}}#s{animation:a .5s infinite alternate}") },
-  { label:"🔥", url: stickerSVG("🔥", "@keyframes a{50%{transform:scale(1.25) rotate(8deg)}}#s{animation:a .4s infinite alternate}") },
-  { label:"😮", url: stickerSVG("😮", "@keyframes a{50%{transform:scaleY(1.2)}}#s{animation:a .45s infinite alternate}") },
-  { label:"🎉", url: stickerSVG("🎉", "@keyframes a{0%{transform:rotate(-15deg)}100%{transform:rotate(15deg)}}#s{animation:a .4s infinite alternate}") },
-  { label:"🤝", url: stickerSVG("🤝", "@keyframes a{50%{transform:scale(.85)}}#s{animation:a .5s infinite alternate}") },
-  { label:"👏", url: stickerSVG("👏", "@keyframes a{50%{transform:rotate(-12deg)}}#s{animation:a .35s infinite alternate}") },
-  { label:"💯", url: stickerSVG("💯", "@keyframes a{50%{transform:scale(1.2)}}#s{animation:a .5s infinite alternate}") },
-  { label:"😭", url: stickerSVG("😭", "@keyframes a{50%{transform:translateY(-5px)}}#s{animation:a .5s infinite alternate}") },
-  { label:"🤔", url: stickerSVG("🤔", "@keyframes a{50%{transform:rotate(20deg)}}#s{animation:a .8s infinite alternate}") },
-  { label:"💪", url: stickerSVG("💪", "@keyframes a{50%{transform:translateY(-5px)}}#s{animation:a .5s infinite alternate}") },
-  { label:"🤣", url: stickerSVG("🤣", "@keyframes a{50%{transform:rotate(15deg) scale(1.15)}}#s{animation:a .5s infinite alternate}") },
-  { label:"🫶", url: stickerSVG("🫶", "@keyframes a{50%{transform:scale(1.25)}}#s{animation:a .5s infinite alternate}") },
-  { label:"😎", url: stickerSVG("😎", "@keyframes a{50%{transform:translateX(-4px)}}#s{animation:a .6s infinite alternate}") },
-  { label:"💔", url: stickerSVG("💔", "@keyframes a{50%{transform:scale(.8)}}#s{animation:a .6s infinite alternate}") },
-  { label:"🥳", url: stickerSVG("🥳", "@keyframes a{50%{transform:scale(1.2) rotate(-10deg)}}#s{animation:a .4s infinite alternate}") },
-  { label:"🕊️", url: stickerSVG("🕊️", "@keyframes a{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ‘Ќ", url: stickerSVG("рџ‘Ќ", "@keyframes a{50%{transform:rotate(25deg)}}#s{animation:a .5s infinite alternate}") },
+  { label:"вќ¤пёЏ", url: stickerSVG("вќ¤пёЏ", "@keyframes a{50%{transform:scale(1.3)}}#s{animation:a .6s infinite alternate}") },
+  { label:"рџ‚", url: stickerSVG("рџ‚", "@keyframes a{50%{transform:translateY(-6px) rotate(-8deg)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ”Ґ", url: stickerSVG("рџ”Ґ", "@keyframes a{50%{transform:scale(1.25) rotate(8deg)}}#s{animation:a .4s infinite alternate}") },
+  { label:"рџ®", url: stickerSVG("рџ®", "@keyframes a{50%{transform:scaleY(1.2)}}#s{animation:a .45s infinite alternate}") },
+  { label:"рџЋ‰", url: stickerSVG("рџЋ‰", "@keyframes a{0%{transform:rotate(-15deg)}100%{transform:rotate(15deg)}}#s{animation:a .4s infinite alternate}") },
+  { label:"рџ¤ќ", url: stickerSVG("рџ¤ќ", "@keyframes a{50%{transform:scale(.85)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ‘Џ", url: stickerSVG("рџ‘Џ", "@keyframes a{50%{transform:rotate(-12deg)}}#s{animation:a .35s infinite alternate}") },
+  { label:"рџ’Ї", url: stickerSVG("рџ’Ї", "@keyframes a{50%{transform:scale(1.2)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ­", url: stickerSVG("рџ­", "@keyframes a{50%{transform:translateY(-5px)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ¤”", url: stickerSVG("рџ¤”", "@keyframes a{50%{transform:rotate(20deg)}}#s{animation:a .8s infinite alternate}") },
+  { label:"рџ’Є", url: stickerSVG("рџ’Є", "@keyframes a{50%{transform:translateY(-5px)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ¤Ј", url: stickerSVG("рџ¤Ј", "@keyframes a{50%{transform:rotate(15deg) scale(1.15)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџ«¶", url: stickerSVG("рџ«¶", "@keyframes a{50%{transform:scale(1.25)}}#s{animation:a .5s infinite alternate}") },
+  { label:"рџЋ", url: stickerSVG("рџЋ", "@keyframes a{50%{transform:translateX(-4px)}}#s{animation:a .6s infinite alternate}") },
+  { label:"рџ’”", url: stickerSVG("рџ’”", "@keyframes a{50%{transform:scale(.8)}}#s{animation:a .6s infinite alternate}") },
+  { label:"рџҐі", url: stickerSVG("рџҐі", "@keyframes a{50%{transform:scale(1.2) rotate(-10deg)}}#s{animation:a .4s infinite alternate}") },
+  { label:"рџ•ЉпёЏ", url: stickerSVG("рџ•ЉпёЏ", "@keyframes a{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}#s{animation:a .5s infinite alternate}") },
 ];
 GIF_STICKERS.forEach(s => {
   const b = document.createElement("button");
@@ -2521,13 +2673,13 @@ function openSettings(){
   if (!me) return;
   const av = document.getElementById("setAvatar");
   if (me.avatarImg) { av.style.backgroundImage = "url('" + me.avatarImg + "')"; av.style.backgroundSize = "cover"; av.textContent = ""; }
-  else { av.style.backgroundImage = ""; av.textContent = me.avatar || "🕊️"; }
-  document.getElementById("setName").textContent = me.name || "Я";
-  document.getElementById("setHandle").textContent = "@" + (me.username || "…");
+  else { av.style.backgroundImage = ""; av.textContent = me.avatar || "рџ•ЉпёЏ"; }
+  document.getElementById("setName").textContent = me.name || "РЇ";
+  document.getElementById("setHandle").textContent = "@" + (me.username || "вЂ¦");
   document.getElementById("setTheme").checked = state.theme === "dark";
   document.getElementById("setBlur").checked = wallBlur;
   document.getElementById("setNotif").checked = notifEnabled;
-  document.getElementById("set2faBadge").textContent = "выкл";
+  document.getElementById("set2faBadge").textContent = "РІС‹РєР»";
   fillSetAccGrid();
   document.getElementById("settingsOverlay").classList.add("show");
 }
@@ -2550,7 +2702,7 @@ document.getElementById("setBlur").addEventListener("change", (e) => { wallBlur 
 document.getElementById("set2faRow").addEventListener("click", () => {
   const t = document.createElement("div");
   t.className = "app-toast";
-  t.textContent = "Двухфакторная аутентификация появится в ближайших обновлениях.";
+  t.textContent = "Р”РІСѓС…С„Р°РєС‚РѕСЂРЅР°СЏ Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёСЏ РїРѕСЏРІРёС‚СЃСЏ РІ Р±Р»РёР¶Р°Р№С€РёС… РѕР±РЅРѕРІР»РµРЅРёСЏС….";
   document.body.appendChild(t);
   setTimeout(() => { t.classList.add("show"); }, 10);
   setTimeout(() => { t.classList.remove("show"); setTimeout(()=>t.remove(), 400); }, 3000);
@@ -2577,13 +2729,13 @@ function fillSetAccGrid(){
 
 // ===== active sessions =====
 function deviceLabel(){
-  let info = "Это устройство · " + (navigator.platform || "");
+  let info = "Р­С‚Рѕ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ В· " + (navigator.platform || "");
   const ua = navigator.userAgent || "";
-  if (/Android/i.test(ua)) info = "Android · Мобильное устройство";
-  else if (/iPhone|iPad|iPod/i.test(ua)) info = "iOS · Мобильное устройство";
-  else if (/Windows/i.test(ua)) info = "Windows · Компьютер";
-  else if (/Mac/i.test(ua)) info = "macOS · Компьютер";
-  else if (/Linux/i.test(ua)) info = "Linux · Компьютер";
+  if (/Android/i.test(ua)) info = "Android В· РњРѕР±РёР»СЊРЅРѕРµ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ";
+  else if (/iPhone|iPad|iPod/i.test(ua)) info = "iOS В· РњРѕР±РёР»СЊРЅРѕРµ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ";
+  else if (/Windows/i.test(ua)) info = "Windows В· РљРѕРјРїСЊСЋС‚РµСЂ";
+  else if (/Mac/i.test(ua)) info = "macOS В· РљРѕРјРїСЊСЋС‚РµСЂ";
+  else if (/Linux/i.test(ua)) info = "Linux В· РљРѕРјРїСЊСЋС‚РµСЂ";
   return info;
 }
 function openSessions(){
@@ -2594,16 +2746,16 @@ function openSessions(){
   row.className = "sess-row";
   row.innerHTML = '<div class="sess-ico">' + ICO.device + '</div>' +
     '<div class="sess-main"><div class="sess-name">' + esc(deviceLabel()) + '</div>' +
-    '<div class="sess-meta">Активна · ' + d.toLocaleDateString("ru-RU",{day:'numeric',month:'long',year:'numeric'}) + '</div></div>' +
-    '<span class="sess-cur">текущая</span>';
+    '<div class="sess-meta">РђРєС‚РёРІРЅР° В· ' + d.toLocaleDateString("ru-RU",{day:'numeric',month:'long',year:'numeric'}) + '</div></div>' +
+    '<span class="sess-cur">С‚РµРєСѓС‰Р°СЏ</span>';
   const outBtn = document.createElement("button");
-  outBtn.className = "btn ghost sm"; outBtn.textContent = "Выйти";
+  outBtn.className = "btn ghost sm"; outBtn.textContent = "Р’С‹Р№С‚Рё";
   outBtn.onclick = () => { el.logoutBtn.onclick(); };
   row.appendChild(outBtn);
   list.appendChild(row);
   const all = document.getElementById("sessionsLogoutAll");
   all.style.display = "";
-  all.onclick = () => { if (confirm("Выйти с этого и всех других устройств?")) el.logoutBtn.onclick(); };
+  all.onclick = () => { if (confirm("Р’С‹Р№С‚Рё СЃ СЌС‚РѕРіРѕ Рё РІСЃРµС… РґСЂСѓРіРёС… СѓСЃС‚СЂРѕР№СЃС‚РІ?")) el.logoutBtn.onclick(); };
   document.getElementById("sessionsOverlay").classList.add("show");
 }
 document.getElementById("sessionsClose").onclick = () => document.getElementById("sessionsOverlay").classList.remove("show");
@@ -2631,8 +2783,8 @@ setIcon(el.circleBtn, "video");
 tryAutoLogin();
 
 
+
 // ===== PWA: register service worker =====
 if ("serviceWorker" in navigator) { window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(e => console.warn("SW error", e)); }); }
-</script>
-</body>
+</script></body>
 </html>
