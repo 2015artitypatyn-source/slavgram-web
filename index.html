@@ -2461,7 +2461,7 @@ function renderMessages(){
         ? `<div class="circle-video"><video class="round" src="${m.video}" muted loop playsinline preload="metadata"></video></div>` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
         : (m.media
           ? `<img class="media-img" src="${m.media}" alt="медиа">` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
-          : `<div class="text">${esc(m.text)}</div>`));
+          : `<div class="text">${esc(m.text)}</div>`)));
     const sentT = msgTimeMs(m);
     const chKey = c.type === "group" ? ("g_" + c.groupId) : (c.type === "channel" ? chanMsgKey(c.chanId) : channels[c.otherUid]);
     let statusHtml = "";
