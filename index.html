@@ -2686,7 +2686,7 @@ function applyTheme(){
   const pick = ACC_COLORS.find(a => a.key === acc);
   if (pick) {
     const dark = state.theme === "dark";
-    const map = { blue:["#0a84ff","#3395ff"], purple:["#bf5af2","#d07bff"], green:["#32d74b","#34c759"], red:["#ff453a","#ff3b30"], pink:["#ff375f","#ff2d55"], orange:["#ff9f0a","#ff9500"], teal:["#64d2ff","#30b0c7"], indigo:["#5e5ce6","#5856d6"], maroon:["#b33030","#d44848"], grey:["#8e8e93","#98989d"] };
+    const map = { blue:["#0a84ff","#3395ff"], purple:["#bf5af2","#d07bff"], green:["#32d74b","#34c759"], red:["#ff453a","#ff3b30"], pink:["#ff375f","#ff2d55"], orange:["#ff9f0a","#ff9500"], teal:["#64d2ff","#30b0c7"], indigo:["#5e5ce6","#5856d6"], maroon:["#b33030","#d44848"], darkmaroon:["#7a1f1f","#9c2a2a"], grey:["#8e8e93","#98989d"] };
     const pair = dark && map[acc] ? map[acc] : [pick.color, pick.color];
     document.documentElement.style.setProperty("--accent", pair[0]);
     document.documentElement.style.setProperty("--accent2", pair[1]);
@@ -2713,6 +2713,7 @@ const ACC_COLORS = [
   { key:"teal",   color:"#30b0c7", name:"Бирюзовый" },
   { key:"indigo", color:"#5856d6", name:"Индиго" },
   { key:"maroon", color:"#9e2b2b", name:"Бордовый" },
+  { key:"darkmaroon", color:"#6d1a1a", name:"Тёмно-бордовый" },
   { key:"grey",   color:"#8e8e93", name:"Серый" },
 ];
 function fillAccGrid(){
