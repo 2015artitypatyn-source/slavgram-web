@@ -1483,6 +1483,20 @@ async function loadUser(uid){
       renderAll();
     }
   } catch(e){}
+  subscribeReadAt(uid);
+}
+// listen to a peer's user doc so "read" receipts update in real time
+const readSubscribed = new Set();
+function subscribeReadAt(uid){
+  if (!uid || uid === me.uid || readSubscribed.has(uid)) return;
+  readSubscribed.add(uid);
+  db.collection("users").doc(uid).onSnapshot(snap => {
+    if (!snap.exists) return;
+    const dd = snap.data();
+    const prev = allUserCache[uid] || {};
+    allUserCache[uid] = { ...prev, username: dd.username, name: dd.name, avatar: dd.avatar, avatarImg: dd.avatarImg, bio: dd.bio, readAt: dd.readAt || {} };
+    renderAll();
+  }, err => console.warn("readSub err", err));
 }
 
 // channel id between two sorted uids
@@ -1550,6 +1564,7 @@ async function loadUserMetaAndAdd(otherUid){
       await addContactByUid(otherUid, dd.username, dd.name, dd.avatar, color, dd.avatarImg);
     }
   } catch(e){}
+  subscribeReadAt(otherUid);
 }
 
 // ================= GROUPS =================
