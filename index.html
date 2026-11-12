@@ -150,6 +150,17 @@
   .msg .check.read { color: var(--accent); opacity: 1; }
   .composer { padding: 10px 14px; display: flex; align-items: flex-end; gap: 8px; background: transparent; }
   .composer textarea { flex: 1; resize: none; border: none; border-radius: 20px; padding: 10px 16px; font-size: 15px; font-family: inherit; background: var(--bg-chat); color: var(--text); outline: none; max-height: 120px; min-height: 40px; }
+  .reply-preview { display: none; align-items: center; gap: 8px; background: var(--hover); border-radius: 10px; padding: 6px 10px; margin-bottom: 6px; font-size: 12px; }
+  .reply-preview .rp-name { font-weight: 600; color: var(--accent); }
+  .reply-preview .rp-text { color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .reply-preview button { border: none; background: none; color: var(--text-dim); cursor: pointer; margin-left: auto; font-size: 14px; }
+  .msg .bubble .reply-ref { background: rgba(255,255,255,.18); border-left: 3px solid rgba(255,255,255,.7); border-radius: 6px; padding: 4px 8px; margin-bottom: 5px; font-size: 12px; color: rgba(0,0,0,.55); }
+  .msg.in .bubble .reply-ref { background: var(--hover); color: var(--text-dim); }
+  .reply-ref .rr-name { font-weight: 600; color: var(--accent); }
+  .reply-ref .rr-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pinned-banner { align-self: center; display: flex; align-items: center; gap: 6px; background: var(--hover); border-radius: 10px; padding: 5px 12px; margin: 2px 0 8px; font-size: 12px; max-width: 90%; color: var(--text); }
+  .pinned-banner .pin-pin { flex-shrink: 0; }
+  .pinned-banner span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .send-btn { border: none; cursor: pointer; background: var(--accent); color: #fff; width: 40px; height: 40px; border-radius: 13px; font-size: 17px; display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
   .send-btn:hover { filter: brightness(1.08); }
   .send-btn:disabled { opacity: .5; cursor: default; filter: none; }
@@ -411,6 +422,11 @@
     <div class="messages" id="messages" style="display:none;"></div>
     <div class="wall-bg" id="wallBg" aria-hidden="true"></div>
     <div class="composer-wrap">
+      <div class="reply-preview" id="replyPreview">
+        <span class="rp-name" id="rpName"></span>
+        <span class="rp-text" id="rpText"></span>
+        <button id="rpCancel" title="Отменить ответ">✕</button>
+      </div>
       <div class="composer" id="composer" style="display:none;">
         <button class="icon-btn" id="photoBtn" title="Отправить фото"></button>
         <button class="icon-btn" id="gifBtn" title="GIF-наклейки"></button>
@@ -735,6 +751,8 @@ function markRead(ch){
 }
 let onlineCache = {};        // uid -> { online: bool, lastSeen: ts }
 let pendingMedia = null;     // { data: dataURL, type: "image"|"gif" } awaiting send
+let replyTarget = null;      // message being replied to, or null
+let pinnedMap = {};          // channel -> { id, author, text } pinned message
 let GROUPS = [];             // [{ id, name, avatar, color, members:[uid...], avatarImg }]
 let groupChannels = {};      // groupId -> "g_" + groupId
 let wallpaper = localStorage.getItem("slav_wallpaper") || "default";   // wallpaper key for chat background
@@ -840,7 +858,7 @@ ICO.svg = (d, sw=2.1) => `<svg viewBox="0 0 24 24" width="20" height="20" fill="
 ICO.svgFill = (d) => `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">${d}</svg>`;
 ICO.plus        = ICO.svg('<path d="M12 5v14M5 12h14" stroke-width="2"/>');
 ICO.badgePlus   = ICO.svg('<circle cx="9" cy="9" r="6"/><path d="M9 6.5v5M6.5 9h5"/><path d="M13.5 15.5l4.5 4.5M18 15l3 3" stroke-width="2"/>');
-ICO.person3     = ICO.svg('<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.2a3 3 0 010 5.6M18 14.6c1.8.7 3 2.2 3 4"/>');
+ICO.person3     = ICO.svg('<circle cx="8.5" cy="8" r="3.4"/><path d="M3 19.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><path d="M15.5 5.2a2.9 2.9 0 010 5.6M17 14.7c1.7.8 2.9 2.3 2.9 4.3"/>');
 ICO.megaphone   = ICO.svg('<path d="M3 11v3"/><path d="M3 11l13-5v12l-13-4v-3z"/><path d="M16 9.5a3 3 0 010 4"/><path d="M6.5 14l1 4h3l-.6-3.4"/>');
 ICO.bell        = ICO.svg('<path d="M18 9.5a6 6 0 10-12 0c0 5-2 6-2 6h16s-2-1-2-6"/><path d="M10.2 20a2 2 0 003.6 0"/>');
 ICO.bellSlash   = ICO.svg('<path d="M18 9.5a6 6 0 00-8.9-5.2M6.7 6.6A6 6 0 006 9.5c0 5-2 6-2 6h13"/><path d="M10.2 20a2 2 0 003.6 0"/><path d="M3 3l18 18" stroke-width="2"/>');
@@ -1414,6 +1432,7 @@ function startListeners(){
   setupInboxChannelsForIncoming();
   setupGroups();
   setupChanSubs();
+  setupPinnedListener();
 }
 
 // my contact list (contacts/{uid}/list/{otherUid}) — but we want it queryable simply.
@@ -1961,6 +1980,7 @@ async function sendMessage(){
   const media = pendingMedia;
   const video = pendingVideo;
   if (!text && !voice && !media && !video) { if (stopRecording()) {} return; }
+  const reply = replyObj();
   let ch;
   if (c.type === "group") ch = "g_" + c.groupId;
   else if (c.type === "channel") ch = chanMsgKey(c.chanId);
@@ -1969,19 +1989,20 @@ async function sendMessage(){
   el.sendBtn.disabled = true;
   try {
     if (voice) {
-      await db.collection("msgs").add({ channel: ch, author: me.uid, text: text || "", voice: voice.data, duration: voice.duration, created_at: serverTS() });
+      await db.collection("msgs").add({ channel: ch, author: me.uid, text: text || "", voice: voice.data, duration: voice.duration, replyTo: reply, created_at: serverTS() });
       pendingVoice = null; micState = "idle"; updateMicBtn();
     } else if (video) {
-      await db.collection("msgs").add({ channel: ch, author: me.uid, video: video.data, duration: video.duration, text: text || "", created_at: serverTS() });
+      await db.collection("msgs").add({ channel: ch, author: me.uid, video: video.data, duration: video.duration, text: text || "", replyTo: reply, created_at: serverTS() });
       pendingVideo = null; vidState = "idle"; updateCircleBtn();
     } else if (media) {
-      await db.collection("msgs").add({ channel: ch, author: me.uid, text: text || "", media: media.data, mediaType: media.type, created_at: serverTS() });
+      await db.collection("msgs").add({ channel: ch, author: me.uid, text: text || "", media: media.data, mediaType: media.type, replyTo: reply, created_at: serverTS() });
       pendingMedia = null;
     } else {
-      await db.collection("msgs").add({ channel: ch, author: me.uid, text, created_at: serverTS() });
+      await db.collection("msgs").add({ channel: ch, author: me.uid, text, replyTo: reply, created_at: serverTS() });
     }
   } catch(e){ console.warn("send err", e); }
   el.sendBtn.disabled = false;
+  clearReply();
 }
 
 // ================= FOLDERS =================
@@ -2414,6 +2435,12 @@ function renderMessages(){
            : channels[c.otherUid];
   const msgs = (ch && msgsCache[ch]) || [];
   el.messages.innerHTML = `<div class="day-sep">${fmtToday()}</div>`;
+  // pinned message banner
+  const pin = ch ? pinnedMap[ch] : null;
+  if (pin) {
+    const pinName = pin.author === me.uid ? "Вы" : (allUserCache[pin.author] ? allUserCache[pin.author].name : "Участник");
+    el.messages.innerHTML += `<div class="pinned-banner"><span class="pin-pin">📌</span><span><b>${esc(pinName)}</b>: ${esc(pin.text || "вложение")}</span></div>`;
+  }
   if (msgs.length === 0) {
     el.messages.innerHTML += `<div class="empty-msg">Сообщений пока нет. Напишите первым!</div>`;
   }
@@ -2426,7 +2453,9 @@ function renderMessages(){
     // for groups, show the sender's name on inbound messages
     const showAuthorIn = (c.type === "group" && !out) || (c.type === "channel" && !out);
     const authorLabel = showAuthorIn ? (allUserCache[m.author] ? allUserCache[m.author].name : authorOf(m.author)) : "";
-    const bubbleBody = m.voice
+    const bubbleBody = (m.replyTo
+      ? `<div class="reply-ref"><span class="rr-name">${esc(m.replyTo.author === me.uid ? "Вы" : (allUserCache[m.replyTo.author] ? allUserCache[m.replyTo.author].name : "Собеседник"))}:</span> <span class="rr-text">${esc(m.replyTo.text || "вложение")}</span></div>`
+      : "") + (m.voice
       ? `<div class="voice-bubble"><audio controls src="${m.voice}"></audio><span>🎤 ${m.duration||0}с</span></div>`
       : (m.video
         ? `<div class="circle-video"><video class="round" src="${m.video}" muted loop playsinline preload="metadata"></video></div>` + (m.text ? `<div class="text">${esc(m.text)}</div>` : "")
@@ -2485,12 +2514,61 @@ function openMsgMenu(e, m){
   closeCtxMenu();
   ctxMenu = document.createElement("div");
   ctxMenu.className = "ctx-menu";
-  ctxMenu.innerHTML = `<div class="ctx-item danger">🗑 Удалить сообщение</div>`;
+  ctxMenu.innerHTML =
+    `<div class="ctx-item">↩ Ответить</div>` +
+    `<div class="ctx-item">📌 Закрепить</div>` +
+    `<div class="ctx-item danger">🗑 Удалить сообщение</div>`;
   ctxMenu.style.left = Math.min(e.clientX, window.innerWidth - 180) + "px";
-  ctxMenu.style.top = Math.min(e.clientY, window.innerHeight - 80) + "px";
-  ctxMenu.firstChild.onclick = () => { const id = m.id; closeCtxMenu(); if (confirm("Удалить это сообщение?")) deleteMessage(id); };
+  ctxMenu.style.top = Math.min(e.clientY, window.innerHeight - 140) + "px";
+  const items = ctxMenu.querySelectorAll(".ctx-item");
+  items[0].onclick = () => { startReply(m); closeCtxMenu(); };
+  items[1].onclick = () => { togglePin(m); closeCtxMenu(); };
+  items[2].onclick = () => { const id = m.id; closeCtxMenu(); if (confirm("Удалить это сообщение?")) deleteMessage(id); };
   document.body.appendChild(ctxMenu);
   document.addEventListener("click", closeCtxMenu, { once: true });
+}
+function startReply(m){
+  replyTarget = m;
+  const preview = document.getElementById("replyPreview");
+  if (!preview) return;
+  document.getElementById("rpName").textContent = (m.author === me.uid ? "Вы" : (allUserCache[m.author] ? allUserCache[m.author].name : "Собеседник"));
+  document.getElementById("rpText").textContent = m.text ? (m.text.length > 40 ? m.text.slice(0,40)+"…" : m.text) : (m.voice ? "🎤 Голосовое" : m.video ? "⭕ Видеокружок" : m.media ? "🖼 Медиа" : "Сообщение");
+  preview.style.display = "flex";
+}
+function clearReply(){
+  replyTarget = null;
+  const preview = document.getElementById("replyPreview");
+  if (preview) preview.style.display = "none";
+}
+document.getElementById("rpCancel").onclick = clearReply;
+function replyObj(){
+  if (!replyTarget) return null;
+  return {
+    id: replyTarget.id || "",
+    author: replyTarget.author || "",
+    text: replyTarget.text || (replyTarget.voice ? "🎤 Голосовое" : replyTarget.video ? "⭕ Видеокружок" : replyTarget.media ? "🖼 Медиа" : ""),
+    vid: replyTarget.video ? 1 : replyTarget.voice ? 1 : replyTarget.media ? 1 : 0
+  };
+}
+// ---- pinned messages ----
+function togglePin(m){
+  if (!m || !m.channel) return;
+  if (pinnedMap[m.channel] && pinnedMap[m.channel].id === m.id) {
+    pinnedMap[m.channel] = null;
+    db.collection("pinned").doc(m.channel).delete().catch(e=>console.warn("unpin err", e));
+    renderMessages();
+  } else {
+    const p = { id: m.id, author: m.author, text: m.text || (m.voice ? "🎤 Голосовое" : m.video ? "⭕ Видеокружок" : m.media ? "🖼 Медиа" : ""), at: serverTS() };
+    pinnedMap[m.channel] = p;
+    db.collection("pinned").doc(m.channel).set(p).then(()=>renderMessages()).catch(e=>console.warn("pin err", e));
+  }
+}
+function setupPinnedListener(){
+  db.collection("pinned").onSnapshot(snap => {
+    pinnedMap = {};
+    snap.forEach(d => { pinnedMap[d.id] = d.data(); });
+    renderMessages();
+  }, err => console.warn("pin listen err", err));
 }
 function closeCtxMenu(){ if (ctxMenu) { ctxMenu.remove(); ctxMenu = null; } }
 function renderAll(){ renderFolders(); renderList(el.search.value); renderMessages(); renderProfile(); syncMobileView(); }
