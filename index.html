@@ -2678,6 +2678,17 @@ function mixHex(a, b, t){
   const bl = Math.round((na&255) + (((nb&255) - (na&255)) * t));
   return "rgb(" + r + "," + g + "," + bl + ")";
 }
+function mixedRgba(aBase, bAccent, t, alpha){
+  const p = String(aBase||"#888").replace("#",""), q = String(bAccent||"#fff").replace("#","");
+  const mp = p.length===3 ? p.split("").map(x=>x+x).join("") : p;
+  const mq = q.length===3 ? q.split("").map(x=>x+x).join("") : q;
+  const na = parseInt(mp,16), nb = parseInt(mq,16);
+  if (isNaN(na) || isNaN(nb)) return "rgba(120,120,128,.6)";
+  const r = Math.round(((na>>16)&255) + ((((nb>>16)&255) - ((na>>16)&255)) * t));
+  const g = Math.round(((na>>8)&255) + ((((nb>>8)&255) - ((na>>8)&255)) * t));
+  const bl = Math.round((na&255) + (((nb&255) - (na&255)) * t));
+  return "rgba(" + r + "," + g + "," + bl + "," + alpha + ")";
+}
 function applyTheme(){
   document.documentElement.setAttribute("data-theme", state.theme);
   const acc = localStorage.getItem("slav_acc") || "blue";
@@ -2698,6 +2709,8 @@ function applyTheme(){
     document.documentElement.style.setProperty("--bg-side", mixHex(baseSide, pair[0], 0.10));
     document.documentElement.style.setProperty("--bg-chat", mixHex(baseChat, pair[0], 0.05));
     document.documentElement.style.setProperty("--sidebar-tint", hexToRgba(pair[0], dark ? 0.10 : 0.06));
+    // matte panels (header / mini profile) get tinted by the accent colour but stay frosted
+    document.documentElement.style.setProperty("--frost", mixedRgba(dark ? "#18181a" : "#fafafc", pair[0], 0.16, dark ? 0.66 : 0.72));
   }
   setIcon(document.getElementById("themeToggle"), state.theme === "dark" ? "sun" : "moon");
   const grid = document.getElementById("accGrid");
