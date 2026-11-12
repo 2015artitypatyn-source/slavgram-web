@@ -70,16 +70,16 @@
   .sidebar-resizer:hover, .sidebar-resizer.active { background: transparent; }
   .sidebar-head { padding: 6px 10px 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-bottom: none; flex-wrap: nowrap; box-sizing: border-box; }
   .sidebar-head .sg-row { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-  .sidebar-head .side-actions { display: flex; align-items: center; gap: 1px; flex-wrap: nowrap; }
-  .sidebar-head .side-actions .icon-btn { width: 34px; height: 34px; }
-  .sg-logo { display: inline-flex; align-items: center; justify-content: center; height: 30px; min-width: 30px; background: transparent; border: none; color: var(--accent); font-weight: 800; cursor: pointer; user-select: none; overflow: hidden; flex: none; position: relative; }
-  .sg-logo .sg-full { font-size: 16px; letter-spacing: .5px; padding: 0 4px; white-space: nowrap; perspective: 200px; display: block; transform-origin: center; }
+  .sidebar-head .side-actions { display: flex; align-items: center; gap: 1px; flex-wrap: nowrap; flex: none; }
+  .sidebar-head .side-actions .icon-btn { width: 32px; height: 32px; flex: none; }
+  .sg-logo { display: inline-flex; align-items: center; justify-content: center; height: 30px; min-width: 30px; background: transparent; border: none; color: var(--accent); font-weight: 800; cursor: pointer; user-select: none; overflow: hidden; flex-shrink: 1; position: relative; }
+  .sg-logo .sg-full { font-size: 15px; letter-spacing: .5px; padding: 0 4px; white-space: nowrap; perspective: 200px; display: block; transform-origin: center; }
   .sg-logo .sg-full .l { display: inline-block; white-space: pre; transform-origin: center; transition: transform .4s cubic-bezier(.25,.8,.25,1), opacity .4s ease; }
   .sg-logo .sg-s { position: absolute; font-size: 22px; opacity: 0; transform: rotateX(90deg); }
   .sg-logo.collapsed .sg-full .l { transform: rotateX(90deg); opacity: 0; }
   .sg-logo.collapsed .sg-s { opacity: 1; transform: rotateX(0deg); transition: transform .4s cubic-bezier(.25,.8,.25,1), opacity .3s ease .15s; }
   .sg-logo.collapsed { min-width: 34px; }
-  .brand { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 2px 4px; border-radius: 10px; }
+  .brand { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 2px 4px; border-radius: 10px; flex-shrink: 1; min-width: 0; }
   .brand:hover { background: var(--hover); }
   .brand .logo { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; background: linear-gradient(135deg, var(--accent2), var(--accent)); box-shadow: 0 2px 6px rgba(0,0,0,.15); }
   .brand h1 { font-size: 14px; font-weight: 700; letter-spacing: .3px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
