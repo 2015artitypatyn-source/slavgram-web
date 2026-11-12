@@ -122,10 +122,10 @@
   .empty-msg { color: var(--text-dim); text-align: center; padding: 30px 20px; font-size: 13px; }
   .chat-pane { display: flex; flex-direction: column; height: 100vh; background: var(--bg-chat); position: relative; overflow: hidden; }
   .chat-pane .wall-bg { position: absolute; inset: 0; z-index: 0; background-position: center center; background-repeat: no-repeat; background-size: cover; pointer-events: none; }
+  .chat-pane .wall-bg.blurred { filter: blur(16px); -webkit-filter: blur(16px); transform: scale(1.05); }
   .chat-pane .chat-header { position: relative; z-index: 2; }
   .chat-pane .placeholder { position: relative; z-index: 1; }
   .chat-pane .messages { position: relative; z-index: 1; background: transparent; }
-  .chat-pane .messages.blurred { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
   .chat-pane .composer-wrap { position: relative; z-index: 2; }
   .chat-header { padding: 8px 12px; display: flex; align-items: center; gap: 12px; background: var(--bg-side); backdrop-filter: saturate(180%) blur(20px); min-height: 62px; flex: none; box-sizing: border-box; }
   .chat-header .mid { flex: 1; }
@@ -1241,7 +1241,7 @@ function applyWallpaper(){
     wb.style.display = "block";
   }
   el.messages.style.backgroundColor = "";
-  el.messages.classList.toggle("blurred", wallBlur && wallpaper === "image" && !!wallImage);
+  wb.classList.toggle("blurred", wallBlur && wallpaper === "image" && !!wallImage);
 }
 function saveWallpaper(){
   localStorage.setItem("slav_wallpaper", wallpaper);
