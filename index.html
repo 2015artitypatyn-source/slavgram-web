@@ -2710,7 +2710,7 @@ function applyTheme(){
     document.documentElement.style.setProperty("--bg-chat", mixHex(baseChat, pair[0], 0.05));
     document.documentElement.style.setProperty("--sidebar-tint", hexToRgba(pair[0], dark ? 0.10 : 0.06));
     // matte panels (header / mini profile) get tinted by the accent colour but stay frosted
-    document.documentElement.style.setProperty("--frost", mixedRgba(dark ? "#18181a" : "#fafafc", pair[0], 0.16, dark ? 0.66 : 0.72));
+    document.documentElement.style.setProperty("--frost", mixedRgba(dark ? "#18181a" : "#fafafc", pair[0], 0.16, dark ? 0.38 : 0.42));
   }
   setIcon(document.getElementById("themeToggle"), state.theme === "dark" ? "sun" : "moon");
   const grid = document.getElementById("accGrid");
@@ -2862,8 +2862,7 @@ function openSettings(){
   document.getElementById("setNotif").checked = notifEnabled;
   document.getElementById("set2faBadge").textContent = "выкл";
   fillSetAccGrid();
-applyShimmer();
-applyMatte();
+  applyShimmer();
   applyMatte();
   document.getElementById("settingsOverlay").classList.add("show");
 }
