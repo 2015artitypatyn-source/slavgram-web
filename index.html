@@ -65,7 +65,7 @@
     transition: background .25s, color .25s;
   }
   .app { display: grid; grid-template-columns: var(--side-w, 320px) 1fr; height: 100vh; }
-  .sidebar { background: var(--bg-side); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: relative; }
+  .sidebar { background: var(--bg-side); display: flex; flex-direction: column; position: relative; }
   .sidebar-resizer { position: absolute; top: 0; right: -4px; width: 9px; height: 100%; cursor: col-resize; z-index: 5; }
   .sidebar-resizer:hover { background: rgba(96,96,96,.15); }
   .sidebar-resizer.active { background: var(--accent2); opacity: .5; }
@@ -149,7 +149,7 @@
   .msg.out .meta { color: rgba(255,255,255,.85); }
   .msg .check { color: inherit; opacity: .9; }
   .msg .check.read { color: var(--accent); opacity: 1; }
-  .composer { padding: 10px 14px; border-top: 1px solid var(--border); display: flex; align-items: flex-end; gap: 8px; background: var(--bg-side); }
+  .composer { padding: 10px 14px; display: flex; align-items: flex-end; gap: 8px; background: var(--bg-side); }
   .composer textarea { flex: 1; resize: none; border: none; border-radius: 20px; padding: 10px 16px; font-size: 15px; font-family: inherit; background: var(--bg-chat); color: var(--text); outline: none; max-height: 120px; min-height: 40px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
   .send-btn { border: none; cursor: pointer; background: var(--accent); color: #fff; width: 42px; height: 42px; border-radius: 50%; font-size: 17px; display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
   .send-btn:hover { filter: brightness(1.08); }
