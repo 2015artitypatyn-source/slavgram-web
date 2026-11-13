@@ -2512,8 +2512,8 @@ function renderMessages(){
       `<div class="bubble">${bubbleBody}` +
       `<div class="meta">${statusHtml}<span>${fmtTime(m.created_at)}</span></div>` +
       `</div>`;
+    d.addEventListener("contextmenu", (e) => { e.preventDefault(); openMsgMenu(e, m); });
     if (out && m.author === me.uid) {
-      d.addEventListener("contextmenu", (e) => { e.preventDefault(); openMsgMenu(e, m); });
       d.addEventListener("dblclick", () => { if (confirm("Удалить это сообщение?")) deleteMessage(m.id); });
     }
     el.messages.appendChild(d);
@@ -2551,13 +2551,13 @@ function openMsgMenu(e, m){
   ctxMenu.innerHTML =
     `<div class="ctx-item">↩ Ответить</div>` +
     `<div class="ctx-item">📌 Закрепить</div>` +
-    `<div class="ctx-item danger">🗑 Удалить сообщение</div>`;
+    (m.author === me.uid ? `<div class="ctx-item danger">🗑 Удалить сообщение</div>` : ``);
   ctxMenu.style.left = Math.min(e.clientX, window.innerWidth - 180) + "px";
   ctxMenu.style.top = Math.min(e.clientY, window.innerHeight - 140) + "px";
   const items = ctxMenu.querySelectorAll(".ctx-item");
   items[0].onclick = () => { startReply(m); closeCtxMenu(); };
   items[1].onclick = () => { togglePin(m); closeCtxMenu(); };
-  items[2].onclick = () => { const id = m.id; closeCtxMenu(); if (confirm("Удалить это сообщение?")) deleteMessage(id); };
+  if (items[2]) items[2].onclick = () => { const id = m.id; closeCtxMenu(); if (confirm("Удалить это сообщение?")) deleteMessage(id); };
   document.body.appendChild(ctxMenu);
   document.addEventListener("click", closeCtxMenu, { once: true });
 }
